@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header-wrapper {
+    padding: 0 15px;
+    height: 64px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+}
+
+.header-wrapper a {
+    margin: 0 8px;
+    color: white;
+    font-family: 'Press Start 2P';
+    text-decoration: none;
+}
+
+.sign-up {
+    color: lightblue !important;
+}
+
+.user {
+    color: lightblue !important;
+}
+
+.active {
+    color: red !important;    
+}

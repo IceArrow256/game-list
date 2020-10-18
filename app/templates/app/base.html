@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="header-wrapper">
+            <div>
+                <a href="/" {% if active == 'home' %}class="active" {% endif %}>Home</a>
+                <a href="/my-games" {% if active == 'my-games' %}class="active" {% endif %}>My games</a>
+                <a href="/games" {% if active == 'games' %}class="active" {% endif %}>Games</a>
+            </div>
+            <div>
+                {% if username == None %}
+                <a href="/login">Login</a>
+                <a href="/sign-up" class="sign-up">Sign up</a>
+                {% else %}
+                <a href="{% url 'logout' %}">Logout</a>
+                <a href="" class="user">{{username}}</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <main>{% block content %}{% endblock %}</main>
+    <footer>
+        Fucking footer
+    </footer>
+</body>
+
+</html>
