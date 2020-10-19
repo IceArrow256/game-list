@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     {% load static %}
+    <link rel="shortcut icon" href="{% static 'app/logo16.png' %}" />
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     {% block styles %}{% endblock %}
@@ -13,26 +14,40 @@
 
 <body>
     <header>
-        <div class="header-wrapper">
-            <div>
-                <a href="/" {% if active == 'home' %}class="active" {% endif %}>Home</a>
-                <a href="/my-games" {% if active == 'my-games' %}class="active" {% endif %}>My games</a>
-                <a href="/games" {% if active == 'games' %}class="active" {% endif %}>Games</a>
+        <div class="header">
+            <div class="header-left">
+                <div><a href="{% url 'index' %}"><img src="{% static 'app/logo48.png' %}" alt="Site logo" class="start"></a></div>
+                <div>
+                    <a href="{% url 'index' %}" class="{% if active == 'home' %}    active{% endif %}">Home</a>
+                    <a href="{% url 'my-games' %}" class="{% if active == 'my-games' %}active{% endif %}">My games</a>
+                    <a href="{% url 'games' %}" class="{% if active == 'games' %}   active{% endif %}">Games</a>
+                </div>
             </div>
-            <div>
-                {% if username == None %}
-                <a href="/login">Login</a>
-                <a href="/sign-up" class="sign-up">Sign up</a>
-                {% else %}
-                <a href="{% url 'logout' %}">Logout</a>
-                <a href="" class="user">{{username}}</a>
+            <div class="header-right">
+                <div>
+                    {% if username == None %}
+                    <a href="{% url 'login' %}" class="{% if active == 'login' %}   active{% endif %}">Login</a>
+                    <a href="{% url 'sign-up' %}" class="{% if active == 'sign-up' %} active{% endif %}">Sign up</a>
+                    {% else %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'profile' %}" class="{% if active == 'profile' %} active{% endif %}">{{username}}</a>
+                    {% endif %}
+                </div>
+                {% if username != None %}
+                <div><a href="{% url 'profile' %}"><img src="{% static 'app/avatar.png' %}" height="48" width="48" alt="Site logo" class="start"></a></div>
                 {% endif %}
             </div>
         </div>
     </header>
-    <main>{% block content %}{% endblock %}</main>
+    <main>
+        <div class="content">{% block content %}{% endblock %}</div>
+    </main>
     <footer>
-        Fucking footer
+        <div class="footer">
+            <div><a href="https://github.com/IceArrow256"><img src="{% static 'app/avatar.png' %}" height="48" width="48" alt="Site logo" class="start"></a></div>
+            <div><a href="https://github.com/IceArrow256/gamelist">Gamelist</a> by <a href="https://github.com/IceArrow256">IceArrow256</a></div>
+        </div>
+
     </footer>
 </body>
 
