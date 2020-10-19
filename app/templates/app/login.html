@@ -9,5 +9,12 @@ Login
 {% endblock %}
 
 {% block content %}
-<h1>Hug you</h1>
+<form method="post" class="login-form">
+    <h1>Log In</h1>
+    {% csrf_token %}
+    <input type="text" name="username" class="login-form-username">
+    <input type="password" name="password" class="login-form-password">
+    <button type="submit">Log In</button>
+</form>
+<h2 class="error">{{ error }}</h2>
 {% endblock %}

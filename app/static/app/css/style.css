@@ -1,3 +1,13 @@
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("/static/app/fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Press Start 2P Regular";
+    src: url("/static/app/fonts/PressStart2P/PressStart2P-Regular.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -29,7 +39,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Press Start 2P';
+    font-family: 'Press Start 2P Regular';
 }
 
 .header a {
@@ -80,6 +90,9 @@ main {
 .content {
     grid-area: c;
     margin: 16px;
+    line-height: 1.5;
+    font-family: Roboto-Regular;
+    text-align: justify;
 }
 
 footer {
@@ -105,6 +118,91 @@ footer {
 }
 
 .footer img {
-    padding: 8px;
+    padding: 0 8px;
     border-radius: 50%;
+}
+
+.my-games {
+    display: flex;
+}
+
+.my-games-lists {
+    background-color: lightgrey;
+}
+
+.my-games-lists a {
+    display: block;
+    text-decoration: none;
+    color: black;
+
+}
+
+.my-games-lists span {
+    color: grey;
+    display: block;
+}
+
+.my-games-games {}
+
+#my-games-games-inbox {
+    display: block;
+}
+
+#my-games-games-completed {
+    display: none;
+}
+
+#my-games-games-paused {
+    display: none;
+}
+
+#my-games-games-dropped {
+    display: none;
+}
+
+#my-games-games-planning {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
+.login-form {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas:
+        ". . h . ."
+        ". u u u ."
+        ". p p p ."
+        ". . . b .";
+}
+
+.login-form input {
+    width: 100%;
+    border: 0;
+    outline: 1px solid black;
+    margin: 8px;
+}
+
+.login-form-username {
+    width: 100%;
+    grid-area: u;
+}
+
+.login-form-password {
+    width: 100%;
+    grid-area: p;
+}
+
+.login-form button {
+    justify-self: end;
+    grid-area: b;
+    margin: 8px;
+}
+
+
+.login-form h1 {
+    grid-area: h;
+    text-align: center;
 }

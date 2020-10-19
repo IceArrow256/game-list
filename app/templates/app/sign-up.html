@@ -9,5 +9,10 @@ Sign up
 {% endblock %}
 
 {% block content %}
-<h1>Hug you</h1>
+<form method="post" class="login-form">
+    <h1>Log In</h1>
+    {% csrf_token %}
+    {{form.as_table}}
+    <button type="submit">Log In</button>
+</form>
 {% endblock %}
