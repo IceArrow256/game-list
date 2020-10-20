@@ -9,151 +9,45 @@ My games
 {% endblock %}
 
 {% block content %}
+<h1>My games: {{list}}</h1>
 <div class="my-games">
-    <div class="my-games-lists">
-        <span>{{username}}'s lists</span>
-        <a href="#" onclick="show_game_list('my-games-games-inbox')">Inbox</a>
-        <a href="#" onclick="show_game_list('my-games-games-completed')">Completed</a>
-        <a href="#" onclick="show_game_list('my-games-games-paused')">Paused</a>
-        <a href="#" onclick="show_game_list('my-games-games-dropped')">Dropped</a>
-        <a href="#" onclick="show_game_list('my-games-games-planning')">Planning</a>
+    <div class="my-games-menu">
+        <span>
+            <nobr>{{username}}'s lists</nobr>
+        </span>
+        <a href="{% url 'my-games' %}?list=inbox">Inbox</a>
+        <a href="{% url 'my-games' %}?list=completed">Completed</a>
+        <a href="{% url 'my-games' %}?list=paused">Paused</a>
+        <a href="{% url 'my-games' %}?list=dropped">Dropped</a>
+        <a href="{% url 'my-games' %}?list=planning">Planning</a>
     </div>
-    <div class="my-games-games">
-        <div id="my-games-games-inbox">
-            <h1>Inbox</h1>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="my-games-games-completed">
-            <h1>Completed</h1>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="my-games-games-paused">
-            <h1>Paused</h1>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="my-games-games-dropped">
-            <h1>Dropped</h1>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="my-games-games-planning">
-            <h1>Planning</h1>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                    <tr>
-                        <td>Assassin’s Creed IV: Black Flag</td>
-                        <td>7</td>
-                        <td>2020-10-19</td>
-                        <td>2013-10-29</td>
-                        <td>PC</td>
-                        <td>Assassin's Creed</td>
-                        <td>Ubisoft Montreal</td>
-                        <td>Canadian</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="my-games-list">
+        <table border="1">
+            <thead>
+                <th>Game</th>
+                <th>Score</th>
+                <th>Date</th>
+                <th>Year</th>
+                <th>Platform</th>
+                <th>Series</th>
+                <th>Developer</th>
+                <th>Country</th>
+            </thead>
+            <tbody>
+                {% for game in games %}
+                <tr>
+                    <td>{{game.game}}</td>
+                    <td>{{game.score}}</td>
+                    <td>{{game.game.release}}</td>
+                    <td>{{game.finished}}</td>
+                    <td>{{game.game.platform}}</td>
+                    <td>{{game.game.series}}</td>
+                    <td>{{game.game.developer}}</td>
+                    <td>{{game.game.developer.country}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

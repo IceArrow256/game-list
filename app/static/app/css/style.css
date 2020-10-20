@@ -123,86 +123,54 @@ footer {
 }
 
 .my-games {
-    display: flex;
+    display: grid;
+    grid-template-columns: min-content auto;
 }
 
-.my-games-lists {
-    background-color: lightgrey;
-}
-
-.my-games-lists a {
+.my-games-menu a {
     display: block;
     text-decoration: none;
     color: black;
 
 }
 
-.my-games-lists span {
+.my-games-menu span {
     color: grey;
     display: block;
 }
 
-.my-games-games {}
-
-#my-games-games-inbox {
-    display: block;
+.my-games-menu {
+    margin: 0 16px 0 0;
 }
 
-#my-games-games-completed {
-    display: none;
-}
-
-#my-games-games-paused {
-    display: none;
-}
-
-#my-games-games-dropped {
-    display: none;
-}
-
-#my-games-games-planning {
-    display: none;
+.my-games-list table {
+    width: 100%;
 }
 
 .error {
     color: red;
 }
 
-.login-form {
+.sign-up {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-areas:
-        ". . h . ."
-        ". u u u ."
-        ". p p p ."
-        ". . . b .";
+    grid-template-columns: auto;
+    justify-content: center;
 }
 
-.login-form input {
-    width: 100%;
-    border: 0;
-    outline: 1px solid black;
+.sign-up h1 {
     margin: 8px;
 }
 
-.login-form-username {
-    width: 100%;
-    grid-area: u;
+.sign-up label,
+.sign-up input,
+.sign-up ul,
+.sign-up span {
+    margin: 4px;
+    width: 400px;
+    display: block;
 }
 
-.login-form-password {
-    width: 100%;
-    grid-area: p;
-}
-
-.login-form button {
-    justify-self: end;
-    grid-area: b;
-    margin: 8px;
-}
-
-
-.login-form h1 {
-    grid-area: h;
-    text-align: center;
+.sign-up button {
+    margin: 4px;
+    display: block;
 }

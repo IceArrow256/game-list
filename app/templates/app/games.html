@@ -9,5 +9,32 @@ Games
 {% endblock %}
 
 {% block content %}
-<h1>Hug you</h1>
+<a href="{% url 'add-country' %}">Add country</a>
+<a href="{% url 'add-platform' %}">Add platform</a>
+<a href="{% url 'add-series' %}">Add series</a>
+<a href="{% url 'add-developer' %}">Add developer</a>
+<a href="{% url 'add-game' %}">Add game</a>
+<h1>Games</h1>
+<table border="1">
+    <thead>
+        <th>Game</th>
+        <th>Date</th>
+        <th>Platform</th>
+        <th>Series</th>
+        <th>Developer</th>
+        <th>Country</th>
+    </thead>
+    <tbody>
+        {% for game in games %}
+        <tr>
+            <td>{{game}}</td>
+            <td>{{game.release}}</td>
+            <td>{{game.platform}}</td>
+            <td>{{game.series}}</td>
+            <td>{{game.developer}}</td>
+            <td>{{game.developer.country}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
