@@ -151,26 +151,36 @@ footer {
     color: red;
 }
 
-.sign-up {
+.simple-form {
     display: grid;
     grid-template-columns: auto;
     justify-content: center;
 }
 
-.sign-up h1 {
+.simple-form h1 {
     margin: 8px;
 }
 
-.sign-up label,
-.sign-up input,
-.sign-up ul,
-.sign-up span {
+.simple-form label,
+.simple-form input,
+.simple-form ul,
+.simple-form span {
     margin: 4px;
     width: 400px;
     display: block;
 }
 
-.sign-up button {
+.simple-form button {
     margin: 4px;
+    display: block;
+}
+
+.simple-form-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.simple-form-links a {
+    margin: 0 4px;
     display: block;
 }

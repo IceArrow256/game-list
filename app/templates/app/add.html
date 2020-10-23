@@ -9,10 +9,17 @@ Add {{what}}
 {% endblock %}
 
 {% block content %}
-<form method="post" class="sign-up">
-<h1>Add {{what}}</h1>
+<form method="post" class="simple-form">
+    <h1>Add {{what}}</h1>
     {% csrf_token %}
     {{form}}
+    <div class="simple-form-links">{% if what != 'country' %}<a href="{% url 'add-country' %}">Add country</a>{% endif %}
+        {% if what != 'platform' %}<a href="{% url 'add-platform' %}">Add platform</a>{% endif %}
+        {% if what != 'series' %}<a href="{% url 'add-series' %}">Add series</a>{% endif %}
+        {% if what != 'developer' %}<a href="{% url 'add-developer' %}">Add developer</a>{% endif %}
+        {% if what != 'game' %}<a href="{% url 'add-game' %}">Add game</a>{% endif %}
+    </div>
     <button type="submit">Add</button>
 </form>
+
 {% endblock %}
