@@ -122,28 +122,28 @@ footer {
     border-radius: 50%;
 }
 
-.my-games {
+.games {
     display: grid;
     grid-template-columns: min-content auto;
 }
 
-.my-games-menu a {
+.games-menu a {
     display: block;
     text-decoration: none;
     color: black;
 
 }
 
-.my-games-menu span {
+.mgames-menu span {
     color: grey;
     display: block;
 }
 
-.my-games-menu {
+.games-menu {
     margin: 0 16px 0 0;
 }
 
-.my-games-list table {
+.games-list table {
     width: 100%;
 }
 

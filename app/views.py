@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 import django.contrib.auth as DCA
 
@@ -14,12 +14,26 @@ def country(request):
     context = {'active': 'games', 'username': username, 'games': games}
     return render(request, 'app/games.html', context)
 
+
 def games(request):
     username = None
-    games = models.Game.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
-    context = {'active': 'games', 'username': username, 'games': games}
+    list_type = 'game'
+    if request.method == 'GET':
+        if 'list' in request.GET:
+            list_type = request.GET['list']
+    if list_type == "game":
+        data = models.Game.objects.all()
+    elif list_type == "platform":
+        data = models.Platform.objects.all()
+    elif list_type == "series":
+        data = models.Series.objects.all()
+    elif list_type == "developer":
+        data = models.Developer.objects.all()
+    elif list_type == "country":
+        data = models.Country.objects.all()
+    context = {'active': 'games', 'username': username, 'list': list_type.capitalize(), 'data': data}
     return render(request, 'app/games.html', context)
 
 
@@ -32,19 +46,39 @@ def index(request):
 
 
 def add_country(request):
-    username = None
     if request.user.is_authenticated:
         username = request.user.username
     if request.method == "POST":
         form = forms.CountryCreateForm(request.POST)
         if form.is_valid():
-            country = form.save(commit=False)
-            country.name = request.POST['name']
-            country.save()
+            form.save()
             return redirect('games')
     else:
         form = forms.CountryCreateForm(request.POST)
-    return render(request, 'app/add.html', {'username': username, 'form': form, 'what': 'country'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'country', 'action': 'Add'})
+
+
+def edit_country(request, country_id=None):
+    if request.user.is_authenticated:
+        username = request.user.username
+    country = get_object_or_404(models.Country, pk=country_id)
+    if request.method == "POST":
+        form = forms.CountryCreateForm(request.POST, instance=country)
+        if form.is_valid():
+            form.save()
+            return redirect('games')
+    else:
+        form = forms.CountryCreateForm(instance=country)
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'country', 'action': 'Edit'})
+
+
+def page404(request):
+    username = None
+    if request.user.is_authenticated:
+        username = request.user.username
+    context = {'username': username}
+    return render(request, 'app/404.html', context)
+
 
 def add_platform(request):
     username = None
@@ -59,7 +93,8 @@ def add_platform(request):
             return redirect('games')
     else:
         form = forms.PlatformCreateForm(request.POST)
-    return render(request, 'app/add.html', {'username': username, 'form': form, 'what': 'platform'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform'})
+
 
 def add_series(request):
     username = None
@@ -74,7 +109,8 @@ def add_series(request):
             return redirect('games')
     else:
         form = forms.SeriesCreateForm(request.POST)
-    return render(request, 'app/add.html', {'username': username, 'form': form, 'what': 'series'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series'})
+
 
 def add_developer(request):
     username = None
@@ -84,13 +120,15 @@ def add_developer(request):
         form = forms.DeveloperCreateForm(request.POST)
         if form.is_valid():
             developer = form.save(commit=False)
-            developer.country = models.Country.objects.get(id=request.POST['country'])
+            developer.country = models.Country.objects.get(
+                id=request.POST['country'])
             developer.name = request.POST['name']
             developer.save()
             return redirect('games')
     else:
         form = forms.DeveloperCreateForm(request.POST)
-    return render(request, 'app/add.html', {'username': username, 'form': form, 'what': 'developer'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer'})
+
 
 def add_game(request):
     username = None
@@ -100,17 +138,19 @@ def add_game(request):
         form = forms.GameCreateForm(request.POST)
         if form.is_valid():
             game = form.save(commit=False)
-            game.platform = models.Platform.objects.get(id=request.POST['platform'])
+            game.platform = models.Platform.objects.get(
+                id=request.POST['platform'])
             game.series = models.Series.objects.get(id=request.POST['series'])
-            game.developer = models.Developer.objects.get(id=request.POST['developer'])
+            game.developer = models.Developer.objects.get(
+                id=request.POST['developer'])
             game.name = request.POST['name']
             game.release = request.POST['release']
             game.save()
-           
+
             return redirect('games')
     else:
         form = forms.GameCreateForm(request.POST)
-    return render(request, 'app/add.html', {'username': username, 'form': form.as_table, 'what': 'game'})
+    return render(request, 'app/change.html', {'username': username, 'form': form.as_table, 'what': 'game'})
 
 
 def login(request):
