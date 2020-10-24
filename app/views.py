@@ -33,7 +33,8 @@ def games(request):
         data = models.Developer.objects.all()
     elif list_type == "country":
         data = models.Country.objects.all()
-    context = {'active': 'games', 'username': username, 'list': list_type.capitalize(), 'data': data}
+    context = {'active': 'games', 'username': username,
+               'list': list_type.capitalize(), 'data': data}
     return render(request, 'app/games.html', context)
 
 
@@ -81,76 +82,108 @@ def page404(request):
 
 
 def add_platform(request):
-    username = None
     if request.user.is_authenticated:
         username = request.user.username
     if request.method == "POST":
         form = forms.PlatformCreateForm(request.POST)
         if form.is_valid():
-            platform = form.save(commit=False)
-            platform.name = request.POST['name']
-            platform.save()
+            form.save()
             return redirect('games')
     else:
         form = forms.PlatformCreateForm(request.POST)
-    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform', 'action': 'Add'})
 
+
+def edit_platform(request, platform_id=None):
+    if request.user.is_authenticated:
+        username = request.user.username
+    platform = get_object_or_404(models.Platform, pk=platform_id)
+    if request.method == "POST":
+        form = forms.PlatformCreateForm(request.POST, instance=platform)
+        if form.is_valid():
+            form.save()
+            return redirect('games')
+    else:
+        form = forms.PlatformCreateForm(instance=platform)
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform', 'action': 'Edit'})
 
 def add_series(request):
-    username = None
     if request.user.is_authenticated:
         username = request.user.username
     if request.method == "POST":
         form = forms.SeriesCreateForm(request.POST)
         if form.is_valid():
-            series = form.save(commit=False)
-            series.name = request.POST['name']
-            series.save()
+            form.save()
             return redirect('games')
     else:
         form = forms.SeriesCreateForm(request.POST)
-    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series', 'action': 'Add'})
 
+
+def edit_series(request, series_id=None):
+    if request.user.is_authenticated:
+        username = request.user.username
+    series = get_object_or_404(models.Series, pk=series_id)
+    if request.method == "POST":
+        form = forms.SeriesCreateForm(request.POST, instance=series)
+        if form.is_valid():
+            form.save()
+            return redirect('games')
+    else:
+        form = forms.SeriesCreateForm(instance=series)
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series', 'action': 'Edit'})
 
 def add_developer(request):
-    username = None
     if request.user.is_authenticated:
         username = request.user.username
     if request.method == "POST":
         form = forms.DeveloperCreateForm(request.POST)
         if form.is_valid():
-            developer = form.save(commit=False)
-            developer.country = models.Country.objects.get(
-                id=request.POST['country'])
-            developer.name = request.POST['name']
-            developer.save()
+            form.save()
             return redirect('games')
     else:
         form = forms.DeveloperCreateForm(request.POST)
-    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer', 'action': 'Add'})
 
+
+def edit_developer(request, developer_id=None):
+    if request.user.is_authenticated:
+        username = request.user.username
+    developer = get_object_or_404(models.Developer, pk=developer_id)
+    if request.method == "POST":
+        form = forms.DeveloperCreateForm(request.POST, instance=developer)
+        if form.is_valid():
+            form.save()
+            return redirect('games')
+    else:
+        form = forms.DeveloperCreateForm(instance=developer)
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer', 'action': 'Edit'})
 
 def add_game(request):
-    username = None
     if request.user.is_authenticated:
         username = request.user.username
     if request.method == "POST":
         form = forms.GameCreateForm(request.POST)
         if form.is_valid():
-            game = form.save(commit=False)
-            game.platform = models.Platform.objects.get(
-                id=request.POST['platform'])
-            game.series = models.Series.objects.get(id=request.POST['series'])
-            game.developer = models.Developer.objects.get(
-                id=request.POST['developer'])
-            game.name = request.POST['name']
-            game.release = request.POST['release']
-            game.save()
-
+            form.save()
             return redirect('games')
     else:
         form = forms.GameCreateForm(request.POST)
-    return render(request, 'app/change.html', {'username': username, 'form': form.as_table, 'what': 'game'})
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'game', 'action': 'Add'})
+
+
+def edit_game(request, game_id=None):
+    if request.user.is_authenticated:
+        username = request.user.username
+    game = get_object_or_404(models.Game, pk=game_id)
+    if request.method == "POST":
+        form = forms.GameCreateForm(request.POST, instance=game)
+        if form.is_valid():
+            form.save()
+            return redirect('games')
+    else:
+        form = forms.GameCreateForm(instance=game)
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'game', 'action': 'Edit'})
 
 
 def login(request):

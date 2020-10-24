@@ -147,6 +147,11 @@ footer {
     width: 100%;
 }
 
+.games-list div {
+    display: flex;
+    justify-content: end;
+}
+
 .error {
     color: red;
 }

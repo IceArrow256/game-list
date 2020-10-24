@@ -39,111 +39,65 @@ Games
                     <td>{{game.series}}</td>
                     <td>{{game.developer}}</td>
                     <td>{{game.developer.country}}</td>
-                    {% comment %} <a href="{% url 'edit-games' %}/game.id">Edit</a> {% endcomment %}
+                    <td><a href="{% url 'edit-game' game.id %}">Edit</a>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <div><a href="{% url 'add-game' %}">Add game</a></div>
         {% endif %}
-        {% if list == 'Game'%}
+        {% if list == 'Platform'%}
         <table border="1">
             <thead>
-                <th>Game</th>
-                <th>Date</th>
                 <th>Platform</th>
+                <th>Edit</th>
+            </thead>
+            <tbody>
+                {% for platform in data %}
+                <tr>
+                    <td>{{platform}}</td>
+                    <td><a href="{% url 'edit-platform' platform.id %}">Edit</a>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div><a href="{% url 'add-platform' %}">Add platform</a></div>
+        {% endif %}
+        {% if list == 'Series'%}
+        <table border="1">
+            <thead>
                 <th>Series</th>
+                <th>Edit</th>
+            </thead>
+            <tbody>
+                {% for series in data %}
+                <tr>
+                    <td>{{series}}</td>
+                    <td><a href="{% url 'edit-series' series.id %}">Edit</a>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div><a href="{% url 'add-series' %}">Add series</a></div>
+        {% endif %}
+        {% if list == 'Developer'%}
+        <table border="1">
+            <thead>
                 <th>Developer</th>
                 <th>Country</th>
                 <th>Edit</th>
             </thead>
             <tbody>
-                {% for game in data %}
+                {% for developer in data %}
                 <tr>
-                    <td>{{game}}</td>
-                    <td>{{game.release}}</td>
-                    <td>{{game.platform}}</td>
-                    <td>{{game.series}}</td>
-                    <td>{{game.developer}}</td>
-                    <td>{{game.developer.country}}</td>
-                    {% comment %} <a href="{% url 'edit-games' %}/game.id">Edit</a> {% endcomment %}
+                    <td>{{developer}}</td>
+                    <td>{{developer.country}}</td>
+                    <td><a href="{% url 'edit-developer' developer.id %}">Edit</a>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% endif %}
-        {% if list == 'Game'%}
-        <table border="1">
-            <thead>
-                <th>Game</th>
-                <th>Date</th>
-                <th>Platform</th>
-                <th>Series</th>
-                <th>Developer</th>
-                <th>Country</th>
-                <th>Edit</th>
-            </thead>
-            <tbody>
-                {% for game in data %}
-                <tr>
-                    <td>{{game}}</td>
-                    <td>{{game.release}}</td>
-                    <td>{{game.platform}}</td>
-                    <td>{{game.series}}</td>
-                    <td>{{game.developer}}</td>
-                    <td>{{game.developer.country}}</td>
-                    {% comment %} <a href="{% url 'edit-games' %}/game.id">Edit</a> {% endcomment %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
-        {% if list == 'Platform'%}
-        <table border="1">
-            <thead>
-                <th>Platform</th>
-                <th>Edit</th>
-            </thead>
-            <tbody>
-                {% for platform in data %}
-                <tr>
-                    <td>{{platform}}</td>
-                    {% comment %} <a href="{% url 'edit-games' %}/game.id">Edit</a> {% endcomment %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
-        {% if list == 'Platform'%}
-        <table border="1">
-            <thead>
-                <th>Platform</th>
-                <th>Edit</th>
-            </thead>
-            <tbody>
-                {% for platform in data %}
-                <tr>
-                    <td>{{platform}}</td>
-                    {% comment %} <a href="{% url 'edit-games' %}/game.id">Edit</a> {% endcomment %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
-        {% if list == 'Platform'%}
-        <table border="1">
-            <thead>
-                <th>Platform</th>
-                <th>Edit</th>
-            </thead>
-            <tbody>
-                {% for platform in data %}
-                <tr>
-                    <td>{{platform}}</td>
-                    {% comment %} <a href="{% url 'edit-games' %}/game.id">Edit</a> {% endcomment %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div><a href="{% url 'add-developer' %}">Add developer</a></div>
         {% endif %}
         {% if list == 'Country'%}
         <table border="1">
@@ -155,18 +109,13 @@ Games
                 {% for country in data %}
                 <tr>
                     <td>{{country}}</td>
-                    <td><a href="/edit-country/{{country.id}}">Edit</a></td>
+                    <td><a href="{% url 'edit-country' country.id %}">Edit</a>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <div><a href="{% url 'add-country' %}">Add country</a></div>
         {% endif %}
     </div>
 </div>
-<a href="{% url 'add-country' %}">Add country</a>
-<a href="{% url 'add-platform' %}">Add platform</a>
-<a href="{% url 'add-series' %}">Add series</a>
-<a href="{% url 'add-developer' %}">Add developer</a>
-<a href="{% url 'add-game' %}">Add game</a>
-
 {% endblock %}
