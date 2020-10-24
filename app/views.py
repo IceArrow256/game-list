@@ -1,9 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+ 
+import django.shortcuts as DS
 
 import django.contrib.auth as DCA
 
 import app.models as models
 import app.forms as forms
+
+def redirect(to, get=''):
+    response = DS.redirect(to)
+    response['Location'] += get
+    return response
 
 
 def country(request):
@@ -53,7 +60,7 @@ def add_country(request):
         form = forms.CountryCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=country')
     else:
         form = forms.CountryCreateForm(request.POST)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'country', 'action': 'Add'})
@@ -67,7 +74,7 @@ def edit_country(request, country_id=None):
         form = forms.CountryCreateForm(request.POST, instance=country)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=country')
     else:
         form = forms.CountryCreateForm(instance=country)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'country', 'action': 'Edit'})
@@ -88,7 +95,7 @@ def add_platform(request):
         form = forms.PlatformCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=country')
     else:
         form = forms.PlatformCreateForm(request.POST)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform', 'action': 'Add'})
@@ -102,7 +109,7 @@ def edit_platform(request, platform_id=None):
         form = forms.PlatformCreateForm(request.POST, instance=platform)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=platform')
     else:
         form = forms.PlatformCreateForm(instance=platform)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform', 'action': 'Edit'})
@@ -114,7 +121,7 @@ def add_series(request):
         form = forms.SeriesCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=series')
     else:
         form = forms.SeriesCreateForm(request.POST)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series', 'action': 'Add'})
@@ -128,7 +135,7 @@ def edit_series(request, series_id=None):
         form = forms.SeriesCreateForm(request.POST, instance=series)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=series')
     else:
         form = forms.SeriesCreateForm(instance=series)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series', 'action': 'Edit'})
@@ -140,7 +147,7 @@ def add_developer(request):
         form = forms.DeveloperCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=developer')
     else:
         form = forms.DeveloperCreateForm(request.POST)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer', 'action': 'Add'})
@@ -154,7 +161,7 @@ def edit_developer(request, developer_id=None):
         form = forms.DeveloperCreateForm(request.POST, instance=developer)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=developer')
     else:
         form = forms.DeveloperCreateForm(instance=developer)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer', 'action': 'Edit'})
@@ -166,7 +173,7 @@ def add_game(request):
         form = forms.GameCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=game')
     else:
         form = forms.GameCreateForm(request.POST)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'game', 'action': 'Add'})
@@ -180,7 +187,7 @@ def edit_game(request, game_id=None):
         form = forms.GameCreateForm(request.POST, instance=game)
         if form.is_valid():
             form.save()
-            return redirect('games')
+            return redirect('games', '?list=game')
     else:
         form = forms.GameCreateForm(instance=game)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'game', 'action': 'Edit'})
