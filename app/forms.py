@@ -33,3 +33,12 @@ class GameCreateForm(forms.ModelForm):
         widgets = {
             'release': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+class GameListCreateForm(forms.ModelForm):
+    class Meta:
+        model = models.GameList
+        fields = ('game', 'game_type', 'score', 'finished')
+        widgets = {
+            'finished': forms.DateInput(attrs={'type': 'date'}),
+        }
+

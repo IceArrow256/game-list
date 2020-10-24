@@ -70,13 +70,17 @@ def edit_country(request, country_id=None):
     if request.user.is_authenticated:
         username = request.user.username
     country = get_object_or_404(models.Country, pk=country_id)
-    if request.method == "POST":
-        form = forms.CountryCreateForm(request.POST, instance=country)
-        if form.is_valid():
-            form.save()
-            return redirect('games', '?list=country')
+    if request.method == 'GET' and 'delete' in request.GET:
+        models.Country.objects.filter(id=country_id).delete()
+        return redirect('games', '?list=country')
     else:
-        form = forms.CountryCreateForm(instance=country)
+        if request.method == "POST":
+            form = forms.CountryCreateForm(request.POST, instance=country)
+            if form.is_valid():
+                form.save()
+                return redirect('games', '?list=country')
+        else:
+            form = forms.CountryCreateForm(instance=country)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'country', 'action': 'Edit'})
 
 
@@ -95,7 +99,7 @@ def add_platform(request):
         form = forms.PlatformCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games', '?list=country')
+            return redirect('games', '?list=platform')
     else:
         form = forms.PlatformCreateForm(request.POST)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform', 'action': 'Add'})
@@ -105,13 +109,17 @@ def edit_platform(request, platform_id=None):
     if request.user.is_authenticated:
         username = request.user.username
     platform = get_object_or_404(models.Platform, pk=platform_id)
-    if request.method == "POST":
-        form = forms.PlatformCreateForm(request.POST, instance=platform)
-        if form.is_valid():
-            form.save()
-            return redirect('games', '?list=platform')
+    if request.method == 'GET' and 'delete' in request.GET:
+        models.Platform.objects.filter(id=platform_id).delete()
+        return redirect('games', '?list=platform')
     else:
-        form = forms.PlatformCreateForm(instance=platform)
+        if request.method == "POST":
+            form = forms.PlatformCreateForm(request.POST, instance=platform)
+            if form.is_valid():
+                form.save()
+                return redirect('games', '?list=platform')
+        else:
+            form = forms.PlatformCreateForm(instance=platform)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'platform', 'action': 'Edit'})
 
 def add_series(request):
@@ -131,13 +139,17 @@ def edit_series(request, series_id=None):
     if request.user.is_authenticated:
         username = request.user.username
     series = get_object_or_404(models.Series, pk=series_id)
-    if request.method == "POST":
-        form = forms.SeriesCreateForm(request.POST, instance=series)
-        if form.is_valid():
-            form.save()
-            return redirect('games', '?list=series')
+    if request.method == 'GET' and 'delete' in request.GET:
+        models.Series.objects.filter(id=series_id).delete()
+        return redirect('games', '?list=series')
     else:
-        form = forms.SeriesCreateForm(instance=series)
+        if request.method == "POST":
+            form = forms.SeriesCreateForm(request.POST, instance=series)
+            if form.is_valid():
+                form.save()
+                return redirect('games', '?list=series')
+        else:
+            form = forms.SeriesCreateForm(instance=series)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'series', 'action': 'Edit'})
 
 def add_developer(request):
@@ -157,13 +169,17 @@ def edit_developer(request, developer_id=None):
     if request.user.is_authenticated:
         username = request.user.username
     developer = get_object_or_404(models.Developer, pk=developer_id)
-    if request.method == "POST":
-        form = forms.DeveloperCreateForm(request.POST, instance=developer)
-        if form.is_valid():
-            form.save()
-            return redirect('games', '?list=developer')
+    if request.method == 'GET' and 'delete' in request.GET:
+        models.Developer.objects.filter(id=developer_id).delete()
+        return redirect('games', '?list=developer')
     else:
-        form = forms.DeveloperCreateForm(instance=developer)
+        if request.method == "POST":
+            form = forms.DeveloperCreateForm(request.POST, instance=developer)
+            if form.is_valid():
+                form.save()
+                return redirect('games', '?list=developer')
+        else:
+            form = forms.DeveloperCreateForm(instance=developer)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'developer', 'action': 'Edit'})
 
 def add_game(request):
@@ -183,14 +199,50 @@ def edit_game(request, game_id=None):
     if request.user.is_authenticated:
         username = request.user.username
     game = get_object_or_404(models.Game, pk=game_id)
-    if request.method == "POST":
-        form = forms.GameCreateForm(request.POST, instance=game)
-        if form.is_valid():
-            form.save()
-            return redirect('games', '?list=game')
+    if request.method == 'GET' and 'delete' in request.GET:
+        models.Game.objects.filter(id=game_id).delete()
+        return redirect('games', '?list=game')
     else:
-        form = forms.GameCreateForm(instance=game)
+        if request.method == "POST":
+            form = forms.GameCreateForm(request.POST, instance=game)
+            if form.is_valid():
+                form.save()
+                return redirect('games', '?list=game')
+        else:
+            form = forms.GameCreateForm(instance=game)
     return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'game', 'action': 'Edit'})
+
+
+def add_gamelist(request, game_id=None):
+    game = get_object_or_404(models.Game, pk=game_id)
+    game_type = models.GameType.objects.filter(name='Inbox').first()
+    gamelist = models.GameList.objects.filter(user=request.user, game=game).first()
+    print(gamelist)
+    if gamelist == None:
+        gamelist = models.GameList(user=request.user, game=game, game_type=game_type, score=0)
+        gamelist.save()
+    return edit_gamelist(request, gamelist.id)
+
+
+def edit_gamelist(request, gamelist_id=None):
+    if request.user.is_authenticated:
+        username = request.user.username
+    gamelist = get_object_or_404(models.GameList, pk=gamelist_id)
+    if request.method == 'GET' and 'delete' in request.GET:
+        game = models.GameList.objects.filter(id=gamelist_id).first()
+        game_type = str(game.game_type).lower()
+        game.delete()
+        return redirect('my-games', f'?list={game_type}')
+    else:
+        if request.method == "POST":
+            form = forms.GameListCreateForm(request.POST, instance=gamelist)
+            if form.is_valid() and form.cleaned_data.get('score') >= 0 and form.cleaned_data.get('score') <= 10:
+                form.save()
+                list_type = str(form.cleaned_data.get('game_type')).lower()
+                return redirect('my-games', f'?list={list_type}')
+        else:
+            form = forms.GameListCreateForm(instance=gamelist)
+    return render(request, 'app/change.html', {'username': username, 'form': form, 'what': 'Game in list', 'action': 'Edit'})
 
 
 def login(request):

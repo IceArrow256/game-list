@@ -22,5 +22,8 @@ urlpatterns = [
     DU.path('edit-developer/<int:developer_id>', views.edit_developer, name='edit-developer'),
     DU.path('add-series', views.add_series, name='add-series'),
     DU.path('edit-series/<int:series_id>', views.edit_series, name='edit-series'),
+    DU.path('add-gamelist/<int:game_id>', views.add_gamelist, name='add-gamelist'),
+    DU.path('edit-gamelist/<int:gamelist_id>', views.edit_gamelist, name='edit-gamelist'),
     DU.path("logout/", DCAV.LogoutView.as_view(), name="logout"),
 ]
+# edit_gamelist

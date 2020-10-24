@@ -26,12 +26,24 @@ body {
     grid-template-columns: 100%;
 }
 
-header {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: ". . h h h h h h h h . .";
-    background-color: black;
+@media only screen and (min-width: 768px) {
+    header {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas: "h h h h h h h h h h h h";
+        background-color: black;
+    }
 }
+
+@media only screen and (min-width: 1200px) {
+    header {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas: ". . h h h h h h h h . .";
+        background-color: black;
+    }
+}
+
 
 
 .header {
@@ -81,10 +93,20 @@ header {
     text-decoration-thickness: 2px;
 }
 
-main {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: ". . c c c c c c c c . .";
+@media only screen and (min-width: 768px) {
+    main {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas: "c c c c c c c c c c c c";
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    main {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas: ". . c c c c c c c c . .";
+    }
 }
 
 .content {
@@ -95,12 +117,26 @@ main {
     text-align: justify;
 }
 
-footer {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: ". . f f f f f f f f . .";
-    background-color: black;
+@media only screen and (min-width: 768px) {
+    footer {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas: "f f f f f f f f f f f f";
+        background-color: black;
+    }
 }
+
+@media only screen and (min-width: 1200px) {
+    footer {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas: ". . f f f f f f f f . .";
+        background-color: black;
+    }
+}
+
+
+
 
 .footer {
     grid-area: f;
@@ -144,6 +180,7 @@ footer {
 }
 
 .games-list table {
+    text-align: center;
     width: 100%;
 }
 
@@ -188,4 +225,10 @@ footer {
 .simple-form-links a {
     margin: 0 4px;
     display: block;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
 }

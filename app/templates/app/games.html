@@ -28,7 +28,9 @@ Games
                 <th>Series</th>
                 <th>Developer</th>
                 <th>Country</th>
+                <th>Add to my gamelist</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {% for game in data %}
@@ -39,7 +41,9 @@ Games
                     <td>{{game.series}}</td>
                     <td>{{game.developer}}</td>
                     <td>{{game.developer.country}}</td>
+                    <td><a href="{% url 'add-gamelist' game.id %}">+</a>
                     <td><a href="{% url 'edit-game' game.id %}">Edit</a>
+                    <td><a href="{% url 'edit-game' game.id %}?delete">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -51,12 +55,14 @@ Games
             <thead>
                 <th>Platform</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {% for platform in data %}
                 <tr>
                     <td>{{platform}}</td>
                     <td><a href="{% url 'edit-platform' platform.id %}">Edit</a>
+                    <td><a href="{% url 'edit-platform' platform.id %}?delete">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -68,12 +74,14 @@ Games
             <thead>
                 <th>Series</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {% for series in data %}
                 <tr>
                     <td>{{series}}</td>
                     <td><a href="{% url 'edit-series' series.id %}">Edit</a>
+                    <td><a href="{% url 'edit-series' series.id %}?delete">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -86,6 +94,7 @@ Games
                 <th>Developer</th>
                 <th>Country</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {% for developer in data %}
@@ -93,6 +102,7 @@ Games
                     <td>{{developer}}</td>
                     <td>{{developer.country}}</td>
                     <td><a href="{% url 'edit-developer' developer.id %}">Edit</a>
+                    <td><a href="{% url 'edit-developer' developer.id %}?delete">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -104,12 +114,14 @@ Games
             <thead>
                 <th>Country</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {% for country in data %}
                 <tr>
                     <td>{{country}}</td>
                     <td><a href="{% url 'edit-country' country.id %}">Edit</a>
+                    <td><a href="{% url 'edit-country' country.id %}?delete">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>

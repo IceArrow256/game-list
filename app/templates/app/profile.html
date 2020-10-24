@@ -9,5 +9,37 @@
 {% endblock %}
 
 {% block content %}
-<h1>Hug you</h1>
+<div class="stats">
+    <div>
+        <h1>General</h1>
+        <ul>
+            <li>Total: {{general.total}}</li>
+            <li>Inbox: {{general.inbox}}</li>
+            <li>Completed: {{general.completed}}</li>
+            <li>Paused: {{general.paused}}</li>
+            <li>Dropped: {{general.dropped}}</li>
+            <li>Planning: {{general.planning}}</li>
+        </ul>
+    </div>
+    <div>
+        <h1>Games by country</h1>
+        <ol>
+        </ol>
+    </div>
+    <div>
+        <h1>Games by series</h1>
+        <ol>
+        </ol>
+    </div>
+    <div>
+        <h1>Game by year</h1>
+        <ul>
+        </ul>
+    </div>
+    <div>
+        <h1>Games by finished date</h1>
+        <ul>
+        </ul>
+    </div>
+</div>
 {% endblock %}
