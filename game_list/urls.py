@@ -18,6 +18,9 @@ import django.urls as DU
 
 urlpatterns = [
     DU.path('admin/', admin.site.urls),
+    DU.path('', DU.include('games.urls')),
+    DU.path('', DU.include('lists.urls')),
+    DU.path('', DU.include('profile.urls')),
     DU.path('', DU.include('registration.urls')),
-    DU.path("", DU.include('stats.urls'))
+    DU.path('', DU.include('stats.urls')),
 ]

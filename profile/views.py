@@ -1,8 +1,7 @@
 from django.shortcuts import render
 
-import django.http as DH
 import stats.utils as SU
 
-def home(request):
+def profile(request):
     context = SU.get_context(request)
-    return render(request, 'stats/home.html', context)
+    return render(request, 'profile/profile.html', context)
