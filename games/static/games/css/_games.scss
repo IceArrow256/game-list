@@ -1,0 +1,101 @@
+@import 'static/css/color';
+
+.category-nav {
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    background-color: $hf-color;
+    box-shadow: $nord4 0px 6px 9px 0px;
+    margin: 16px;
+
+    a {
+        text-decoration: none;
+        color: $text-color-white;
+        padding: 8px;
+        display: block;
+
+        &:hover {
+            text-decoration: underline;
+            color: $nord8;
+        }
+    }
+}
+
+.category-content {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+
+.settings {
+    background-color: white;
+    color: $text-color-black;
+    border-radius: 8px;
+    padding: 2em;
+    box-shadow: $nord4 0px 6px 9px 0px;
+    margin: 16px;
+
+    ul {
+        list-style-position: inside;
+    }
+}
+
+table {
+    text-align: center;
+    margin: 16px;
+    border-spacing: 0px;
+    border-radius: 10px;
+    box-shadow: $nord4 0px 6px 9px 0px;
+
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+th {
+    background-color: $hf-color;
+    color: $text-color-white;
+    padding: 8px;
+}
+
+td {
+    background-color: white;
+    padding: 8px;
+}
+
+th,
+tr,
+td {
+    border: 1px solid $hf-color;
+}
+
+.action {
+    * {
+        text-align: center;
+        width: 128px+32px;
+        display: block;
+    }
+}
+
+.sort-and-filt {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    * {
+        margin: 0 4px;
+    }
+}

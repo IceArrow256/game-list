@@ -1,21 +1,21 @@
 <header>
     <div class="header">
-        <nav class="nav">
+        <nav>
             {% load static %}
-            <a href="{% url 'home' %}" class="nav-a"><img src="{% static 'logo.png' %}" alt="Site logo"></a>
-            <a href="{% url 'home' %}" class="nav-a">Home</a>
-            <a href="{% url 'games' %}" class="nav-a">Games</a>
+            <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" alt="Site logo"></a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'games' %}">Games</a>
             {% if user.is_authenticated %}
-            <a href="{% url 'lists' %}" class="nav-a">My lists</a>
+            <a href="{% url 'lists' %}">Lists</a>
             {% endif %}
         </nav>
-        <nav class="nav">
+        <nav>
             {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="nav-a">Logout</a>
-            <a href="{% url 'profile' %}" class="nav-a">{{user.username}}</a>
+            <a href="{% url 'logout' %}" class="nav-profile">Logout</a>
+            <a href="{% url 'profile' %}" class="nav-username">{{user.username}}</a>
             {% else %}
-            <a href="{% url 'login' %}" class="nav-a">Login</a>
-            <a href="{% url 'sign-up' %}" class="nav-a">Sign up</a>
+            <a href="{% url 'login' %}" class="nav-profile">Login</a>
+            <a href="{% url 'sign-up' %}" class="nav-profile">Sign up</a>
             {% endif %}
         </nav>
     </div>

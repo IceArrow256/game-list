@@ -1,5 +1,84 @@
 {% extends 'base.html' %}
 
 {% block title %}Games · Game list{% endblock %}
+
 {% block content %}
+
+<div class="category-nav">
+    <a href="{% url 'games' 'Games' %}">Games</a>
+    <a href="{% url 'games' 'Platforms' %}">Platforms</a>
+    <a href="{% url 'games' 'Series' %}">Series</a>
+    <a href="{% url 'games' 'Developers' %}">Developers</a>
+    <a href="{% url 'games' 'Countries' %}">Countries</a>
+</div>
+<div class="category-content">
+    <div class="settings">
+        <h2>Sorting and Filtration</h2>
+        <div class="sort-and-filt">
+            <div class="action">
+                <label for="sort">Sort</label>
+                <select name="sort" id="sort">
+                    <option value="Name">Name</option>
+                    <option value="Platforms">Platforms</option>
+                </select>
+            </div>
+            <div class="action">
+                <label for="platform">Filter by Platform</label>
+                <select name="platform" id="platform">
+                    <option value=""></option>
+                    <option value="Windows">Windows</option>
+                    <option value="Linux">Linux</option>
+                </select>
+            </div>
+            <div class="action">
+                <label for="series">Filter by Series</label>
+                <select name="series" id="series">
+                    <option value=""></option>
+                    <option value="Assassin's Creed">Assassin's Creed</option>
+                    <option value="Crusader Kings">Crusader Kings</option>
+                </select>
+            </div>
+            <div class="action">
+                <label for="developer">Filter by Developer</label>
+                <select name="developer" id="developer">
+                    <option value=""></option>
+                    <option value="Paradox Development Studio">Paradox Development Studio</option>
+                    <option value="Ubisoft Sofia">Ubisoft Sofia</option>
+                </select>
+            </div>
+            <div class="action">
+                <label for="country">Filter by Country</label>
+                <select name="country" id="country">
+                    <option value=""></option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                </select>
+            </div>
+            <div class="action">
+                <label for="year">Filter by Year</label>
+                <select name="year" id="year">
+                    <option value=""></option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <table>
+        <tr class="table-header">
+            {% for key in keys %}
+            <th>{{key|safe}}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for element in row %}
+            <td>{{element|escape}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
