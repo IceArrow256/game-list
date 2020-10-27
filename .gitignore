@@ -224,3 +224,4 @@ dmypy.json
 ### Project ###
 # Django secret key
 secret_key.py
+static/css/style.css
