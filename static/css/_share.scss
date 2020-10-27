@@ -183,6 +183,7 @@ button {
     color: $text-color-white;
     padding: 4px;
     transition: all 0.25s;
+    box-shadow: $nord4 0px 6px 9px 0px;
 
     &:hover {
         background-color: $nord7;
@@ -199,6 +200,7 @@ input {
     color: $text-color-white;
     padding: 4px;
     transition: all 0.25s;
+    box-shadow: $nord4 0px 6px 9px 0px;
 
     &:focus {
         border-color: $nord7;
@@ -210,6 +212,8 @@ select {
     padding: 8px;
     background-color: $nord2;
     color: $text-color-white;
+    box-shadow: $nord4 0px 6px 9px 0px;
+    text-align: center;
 }
 
 

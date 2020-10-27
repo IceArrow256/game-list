@@ -14,58 +14,71 @@
 <div class="category-content">
     <div class="settings">
         <h2>Sorting and Filtration</h2>
-        <div class="sort-and-filt">
+        {% if category == 'Games' %}
+        <form class="sort-and-filt">
             <div class="action">
-                <label for="sort">Sort</label>
-                <select name="sort" id="sort">
-                    <option value="Name">Name</option>
-                    <option value="Platforms">Platforms</option>
-                </select>
+                <label for="sort">{{form.sort.label}}</label>
+                {{form.sort}}
             </div>
             <div class="action">
-                <label for="platform">Filter by Platform</label>
-                <select name="platform" id="platform">
-                    <option value=""></option>
-                    <option value="Windows">Windows</option>
-                    <option value="Linux">Linux</option>
-                </select>
+                <label for="platform">{{form.platform.label}}</label>
+                {{form.platform}}
             </div>
             <div class="action">
-                <label for="series">Filter by Series</label>
-                <select name="series" id="series">
-                    <option value=""></option>
-                    <option value="Assassin's Creed">Assassin's Creed</option>
-                    <option value="Crusader Kings">Crusader Kings</option>
-                </select>
+                <label for="series">{{form.series.label}}</label>
+                {{form.series}}
             </div>
             <div class="action">
-                <label for="developer">Filter by Developer</label>
-                <select name="developer" id="developer">
-                    <option value=""></option>
-                    <option value="Paradox Development Studio">Paradox Development Studio</option>
-                    <option value="Ubisoft Sofia">Ubisoft Sofia</option>
-                </select>
+                <label for="release">{{form.developer.label}}</label>
+                {{form.developer}}
             </div>
             <div class="action">
-                <label for="country">Filter by Country</label>
-                <select name="country" id="country">
-                    <option value=""></option>
-                    <option value="Sweden">Sweden</option>
-                    <option value="Bulgaria">Bulgaria</option>
-                </select>
+                <label for="release">{{form.country.label}}</label>
+                {{form.country}}
             </div>
             <div class="action">
-                <label for="year">Filter by Year</label>
-                <select name="year" id="year">
-                    <option value=""></option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                </select>
+                <label for="release">{{form.release.label}}</label>
+                {{form.release}}
             </div>
-
-        </div>
+        </form>
+        {% endif %}
+        {% if category == 'Platforms' %}
+        <form class="sort-and-filt">
+            <div class="action">
+                <label for="sort">{{form.sort.label}}</label>
+                {{form.sort}}
+            </div>
+        </form>
+        {% endif %}
+        {% if category == 'Series' %}
+        <form class="sort-and-filt">
+            <div class="action">
+                <label for="sort">{{form.sort.label}}</label>
+                {{form.sort}}
+            </div>
+        </form>
+        {% endif %}
+        {% if category == 'Developers' %}
+        <form class="sort-and-filt">
+            <div class="action">
+                <label for="sort">{{form.sort.label}}</label>
+                {{form.sort}}
+            </div>
+            <div class="action">
+                <label for="release">{{form.country.label}}</label>
+                {{form.country}}
+            </div>
+        </form>
+        {% endif %}
+        {% if category == 'Countries' %}
+        <form class="sort-and-filt">
+            <div class="action">
+                <label for="sort">{{form.sort.label}}</label>
+                {{form.sort}}
+            </div>
+        </form>
+        {% endif %}
     </div>
-
     <table>
         <tr class="table-header">
             {% for key in keys %}
@@ -80,5 +93,10 @@
         </tr>
         {% endfor %}
     </table>
+    {% if user.is_authenticated %}
+    <div class="button-container">
+        <a href=""><button>Add {{category}}</button></a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

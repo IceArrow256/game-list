@@ -1,0 +1,38 @@
+.sign-up,
+.login {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $nord4 0px 6px 9px 0px;
+    color: $text-color-black;
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    margin: 16px;
+    padding: 2em;
+
+    p {
+        display: flex;
+        flex-wrap: wrap;
+
+        >* {
+            flex-basis: 100%;
+        }
+    }
+
+    >* {
+        >* {
+            margin: 8px 0;
+        }
+    }
+
+    >button {
+        margin: 8px 0;
+    }
+}
+
+
+.registration-container {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+}

@@ -18,58 +18,49 @@
     <div class="card">
         <h2>Global Stats</h2>
         <ul>
-            <li>Total Countries: 9</li>
-            <li>Total Developers: 8</li>
-            <li>Total Games: 7</li>
-            <li>Total Platform: 6</li>
-            <li>Total Series: 5</li>
-            <li>Total User: 4</li>
+            {% for elemnt in global_stats %}
+            <li>Total {{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="card">
         <h2>Game by Platform</h2>
         <ul>
-            <li>Linux: 9</li>
-            <li>PlayStation 3: 8</li>
-            <li>Windows: 7</li>
+            {% for elemnt in platforms %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="card">
         <h2>Games by Series</h2>
         <ul>
-            <li>Assassin's Creed: 9</li>
-            <li>Drakengard: 8</li>
+            {% for elemnt in series %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="card">
         <h2>Game by Developers</h2>
         <ul>
-            <li>Paradox Development Studio: 9</li>
-            <li>Ubisoft Sofia 8</li>
-            <li>Ubisoft Montreal: 7</li>
-            <li>Cavia: 6</li>
-            <li>Key: 5</li>
+            {% for elemnt in developers %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="card">
         <h2>Game by Year</h2>
         <ul>
-            <li>2020: 9</li>
-            <li>2019: 8</li>
-            <li>2018: 7</li>
-            <li>2017: 6</li>
-            <li>2016: 5</li>
-            <li>2015: 4</li>
+            {% for elemnt in years %}
+                <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="card">
-
         <h2>Game by Countries</h2>
         <ul>
-            <li>Ukraine: 9</li>
-            <li>United States: 8</li>
-            <li>Canada: 7</li>
-            <li>United Kingdom: 6</li>
+            {% for elemnt in countries %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
         </ul>
     </div>
 </div>

@@ -166,6 +166,7 @@ button {
   color: #d8dee9;
   padding: 4px;
   transition: all 0.25s;
+  box-shadow: #d8dee9 0px 6px 9px 0px;
 }
 
 button:hover {
@@ -182,6 +183,7 @@ input {
   color: #d8dee9;
   padding: 4px;
   transition: all 0.25s;
+  box-shadow: #d8dee9 0px 6px 9px 0px;
 }
 
 input:focus {
@@ -193,6 +195,8 @@ select {
   padding: 8px;
   background-color: #434c5e;
   color: #d8dee9;
+  box-shadow: #d8dee9 0px 6px 9px 0px;
+  text-align: center;
 }
 
 h1,
@@ -303,6 +307,15 @@ td {
   margin: 0 4px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: end;
+}
+
+button {
+  margin: 16px;
+}
+
 .card {
   background-color: white;
   color: #4c566a;
@@ -324,4 +337,44 @@ td {
 h1,
 h2 {
   text-align: center;
+}
+
+.sign-up,
+.login {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: #d8dee9 0px 6px 9px 0px;
+  color: #4c566a;
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  margin: 16px;
+  padding: 2em;
+}
+
+.sign-up p,
+.login p {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sign-up p > *,
+.login p > * {
+  flex-basis: 100%;
+}
+
+.sign-up > * > *,
+.login > * > * {
+  margin: 8px 0;
+}
+
+.sign-up > button,
+.login > button {
+  margin: 8px 0;
+}
+
+.registration-container {
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
 }

@@ -99,3 +99,12 @@ td {
         margin: 0 4px;
     }
 }
+
+.button-container {
+    display: flex;
+    justify-content: end;
+}
+
+button {
+    margin: 16px;
+}
