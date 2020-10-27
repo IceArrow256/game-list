@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Games · Game list{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="post" class="create">
+        <h1>{{action}} {{category}}</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-links">
+            {% if category != 'Country' %} <a href="{% url 'create' 'Country' %}">Create country</a>{% endif %}
+            {% if category != 'Platform' %} <a href="{% url 'create' 'Platform' %}">Create platform</a>{% endif %}
+            {% if category != 'Series' %} <a href="{% url 'create' 'Series' %}">Create series</a>{% endif %}
+            {% if category != 'Developer' %}<a href="{% url 'create' 'Developer' %}">Create developer</a>{% endif %}
+            {% if category != 'Game' %} <a href="{% url 'create' 'Game' %}">Create game</a>{% endif %}
+        </div>
+        <button type="submit">Apply</button>
+    </form>
+</div>
+{% endblock %}

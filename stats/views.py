@@ -19,7 +19,6 @@ def home(request):
         for year in GM.Game.objects.all().values('release'):
             if year not in years:
                 years.append(int(year['release'].year))
-        print(years)
         return years
 
     

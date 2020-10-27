@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 import datetime as DT
 
@@ -61,13 +61,13 @@ def get_countries_dict(countries):
     return keys, data
 
 
-def games(request, category="Games"):
+def games(request, category="Game"):
     context = SU.get_context(request)
     keys = []
     data = []
     form = None
 
-    if category == "Games":
+    if category == "Game":
         form = GF.FilterFormGames(request.GET)
         if form.is_valid():
             sort = form.cleaned_data.get('sort')
@@ -97,13 +97,12 @@ def games(request, category="Games"):
             games = games.filter(release__gte=DT.date(release, 1, 1), release__lt=DT.date(release+1, 1, 1))
         keys, data = get_games_dict(games)
 
-    if category == "Platforms":
+    if category == "Platform":
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
             sort = form.cleaned_data.get('sort')
         else:
             sort = form['sort'].initial
-        print(sort)
         platforms = GM.Platform.objects.all().order_by(f"{sort}")
         keys, data = get_platforms_dict(platforms)
     
@@ -116,7 +115,7 @@ def games(request, category="Games"):
         series = GM.Series.objects.all().order_by(f"{sort}")
         keys, data = get_series_dict(series)
 
-    if category == "Developers":
+    if category == "Developer":
         form = GF.FilterFormContry(request.GET)
         if form.is_valid():
             sort = form.cleaned_data.get('sort')
@@ -129,7 +128,7 @@ def games(request, category="Games"):
             developers = developers.filter(country=country)
         keys, data = get_developers_dict(developers)
 
-    if category == "Countries":
+    if category == "Country":
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
             sort = form.cleaned_data.get('sort')
@@ -144,3 +143,28 @@ def games(request, category="Games"):
     context["category"] = category
 
     return render(request, 'games/games.html', context)
+
+def create(request, category=None):
+    context = SU.get_context(request)
+    if category == "Game":
+        form = GF.GameCreateForm()
+    if category == "Platform":
+        form = GF.PlatformCreateForm()
+    if category == "Series":
+        form = GF.SeriesCreateForm()
+    if category == "Developer":
+        form = GF.DeveloperCreateForm()
+    if category == "Country":
+        form = GF.CountryCreateForm()
+    context["form"] = form
+    context["action"] = "Create"
+    context["category"] = category
+    return render(request, 'games/change.html', context)
+
+def update(request, category="Game", id=None):
+    context = SU.get_context(request)
+    return render(request, 'games/change.html', context)
+
+def delete(request, category="Game", id=None):
+    return redirect('games')
+

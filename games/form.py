@@ -1,6 +1,7 @@
 import django.forms as DF
 import games.models as GM
 
+
 def get_years():
     data = GM.Game.objects.all().values("release").order_by('-release'),
     result = [(None, "---------")]
@@ -10,6 +11,7 @@ def get_years():
             if value not in result:
                 result.append(value)
     return result
+
 
 SORT_CHOICES_ALL = [
     ('-release', 'Release (321)'),
@@ -39,6 +41,7 @@ SORT_CHOICES_COUNTRY = [
     ("-name", 'Name (CBA)'),
     ('-country__name', 'Country (CBA)'),
 ]
+
 
 class FilterFormGames(DF.Form):
     sort = DF.ChoiceField(label='Sort',
@@ -104,3 +107,36 @@ class FilterFormContry(DF.Form):
                                   queryset=GM.Country.objects.all().order_by('name'),
                                   required=False,
                                   )
+
+
+class CountryCreateForm(DF.ModelForm):
+    class Meta:
+        model = GM.Country
+        fields = ('name',)
+
+
+class DeveloperCreateForm(DF.ModelForm):
+    class Meta:
+        model = GM.Developer
+        fields = ('country', 'name')
+
+
+class PlatformCreateForm(DF.ModelForm):
+    class Meta:
+        model = GM.Platform
+        fields = ('name',)
+
+
+class SeriesCreateForm(DF.ModelForm):
+    class Meta:
+        model = GM.Series
+        fields = ('name',)
+
+
+class GameCreateForm(DF.ModelForm):
+    class Meta:
+        model = GM.Game
+        fields = ('platform', 'series', 'developer', 'name', 'release')
+        widgets = {
+            'release': DF.DateInput(attrs={'type': 'date'}),
+        }

@@ -108,3 +108,56 @@ td {
 button {
     margin: 16px;
 }
+
+.create,
+.update {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $nord4 0px 6px 9px 0px;
+    color: $text-color-black;
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    margin: 16px;
+    padding: 2em;
+
+    .form-links {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    a {
+        color: $text-color-black;
+        margin: 0px 4px;
+
+        &:hover {
+            color: $nord8;
+        }
+    }
+
+    p {
+        display: flex;
+        flex-wrap: wrap;
+
+        >* {
+            flex-basis: 100%;
+        }
+    }
+
+    >* {
+        >* {
+            margin: 8px 0;
+        }
+    }
+
+    >button {
+        margin: 8px 0;
+    }
+}
+
+
+.form-container {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+}

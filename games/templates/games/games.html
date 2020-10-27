@@ -5,16 +5,16 @@
 {% block content %}
 
 <div class="category-nav">
-    <a href="{% url 'games' 'Games' %}">Games</a>
-    <a href="{% url 'games' 'Platforms' %}">Platforms</a>
+    <a href="{% url 'games' 'Game' %}">Games</a>
+    <a href="{% url 'games' 'Platform' %}">Platforms</a>
     <a href="{% url 'games' 'Series' %}">Series</a>
-    <a href="{% url 'games' 'Developers' %}">Developers</a>
-    <a href="{% url 'games' 'Countries' %}">Countries</a>
+    <a href="{% url 'games' 'Developer' %}">Developers</a>
+    <a href="{% url 'games' 'Country' %}">Countries</a>
 </div>
 <div class="category-content">
     <div class="settings">
         <h2>Sorting and Filtration</h2>
-        {% if category == 'Games' %}
+        {% if category == 'Game' %}
         <form class="sort-and-filt">
             <div class="action">
                 <label for="sort">{{form.sort.label}}</label>
@@ -42,7 +42,7 @@
             </div>
         </form>
         {% endif %}
-        {% if category == 'Platforms' %}
+        {% if category == 'Platform' %}
         <form class="sort-and-filt">
             <div class="action">
                 <label for="sort">{{form.sort.label}}</label>
@@ -58,7 +58,7 @@
             </div>
         </form>
         {% endif %}
-        {% if category == 'Developers' %}
+        {% if category == 'Developer' %}
         <form class="sort-and-filt">
             <div class="action">
                 <label for="sort">{{form.sort.label}}</label>
@@ -70,7 +70,7 @@
             </div>
         </form>
         {% endif %}
-        {% if category == 'Countries' %}
+        {% if category == 'Country' %}
         <form class="sort-and-filt">
             <div class="action">
                 <label for="sort">{{form.sort.label}}</label>
@@ -95,7 +95,7 @@
     </table>
     {% if user.is_authenticated %}
     <div class="button-container">
-        <a href=""><button>Add {{category}}</button></a>
+        <a href="{% url 'create' category %}"><button>Add {{category}}</button></a>
     </div>
     {% endif %}
 </div>
