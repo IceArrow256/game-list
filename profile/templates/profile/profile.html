@@ -2,4 +2,95 @@
 
 {% block title %}{{user.username}} · Game list{% endblock %}
 {% block content %}
+<div class="card">
+    <h1>{{user.username}}'s Stats by Completed Game</h1>
+</div>
+<div class="category-nav">
+    <a href="{% url 'profile' 'All' %}">All</a>
+    <a href="{% url 'profile' 'Inbox' %}">Inbox</a>
+    <a href="{% url 'profile' 'Completed' %}">Completed</a>
+    <a href="{% url 'profile' 'Planning' %}">Planning</a>
+    <a href="{% url 'profile' 'Paused' %}">Paused</a>
+    <a href="{% url 'profile' 'Dropped' %}">Dropped</a>
+</div>
+<div class="card-container">
+    {% if global_stats %}
+    <div class="card">
+        <h2>Global Stats</h2>
+        <ul>
+            {% for elemnt in global_stats %}
+            <li>Total {{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if platforms %}
+    <div class="card">
+        <h2>Game by Platform</h2>
+        <ul>
+            {% for elemnt in platforms %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if series %}
+    <div class="card">
+        <h2>Games by Series</h2>
+        <ul>
+            {% for elemnt in series %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if developers %}
+    <div class="card">
+        <h2>Game by Developers</h2>
+        <ul>
+            {% for elemnt in developers %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if years %}
+    <div class="card">
+        <h2>Game by Release Year</h2>
+        <ul>
+            {% for elemnt in years %}
+                <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if years_finished %}
+    <div class="card">
+        <h2>Game by Finished Year</h2>
+        <ul>
+            {% for elemnt in years_finished %}
+                <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="card">
+        <h2>Game by Countries</h2>
+        <ul>
+            {% for elemnt in countries %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% if category == 'All'%}
+    <div class="card">
+        <h2>Game by List</h2>
+        <ul>
+            {% for elemnt in lists %}
+            <li>{{elemnt.0}}: {{elemnt.1}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

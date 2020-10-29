@@ -2,4 +2,72 @@
 
 {% block title %}Lists · Game list{% endblock %}
 {% block content %}
+<div class="category-nav">
+    <a href="{% url 'lists' 'All' %}">All</a>
+    <a href="{% url 'lists' 'Inbox' %}">Inbox</a>
+    <a href="{% url 'lists' 'Completed' %}">Completed</a>
+    <a href="{% url 'lists' 'Planning' %}">Planning</a>
+    <a href="{% url 'lists' 'Paused' %}">Paused</a>
+    <a href="{% url 'lists' 'Dropped' %}">Dropped</a>
+</div>
+<div class="category-content">
+<div class="settings">
+        <h2>Sorting and Filtration</h2>
+        <form class="sort-and-filt">
+            <div class="action">
+                <label for="sort">{{form.sort.label}}</label>
+                {{form.sort}}
+            </div>
+            <div class="action">
+                <label for="platform">{{form.platform.label}}</label>
+                {{form.platform}}
+            </div>
+            <div class="action">
+                <label for="series">{{form.series.label}}</label>
+                {{form.series}}
+            </div>
+            <div class="action">
+                <label for="developer">{{form.developer.label}}</label>
+                {{form.developer}}
+            </div>
+            <div class="action">
+                <label for="country">{{form.country.label}}</label>
+                {{form.country}}
+            </div>
+            {% if category == 'All' %}
+            <div class="action">
+                <label for="game_list_type">{{form.game_list_type.label}}</label>
+                {{form.game_list_type}}
+            </div>
+            {% endif %}
+            <div class="action">
+                <label for="release">{{form.release.label}}</label>
+                {{form.release}}
+            </div>
+            <div class="action">
+                <label for="finished">{{form.finished.label}}</label>
+                {{form.finished}}
+            </div>
+        </form>
+    </div>
+    <table>
+        <tr class="table-header">
+            {% for key in keys %}
+            <th>{{key}}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for key,value in row.items %}
+            {% if key == 'id' %}
+                        <td><a href="{% url 'update-game-in-list' category value %}">Edit</a></td>
+            <td><a href="{% url 'delete' 'GameInList' value %}">Del</a></td>
+            {% else %}
+            <td>{{value}}</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

@@ -41,11 +41,22 @@
 }
 
 table {
+    // display: block;
+    // width: 100%;
+    // overflow-x: auto;
     text-align: center;
     margin: 16px;
     border-spacing: 0px;
     border-radius: 10px;
     box-shadow: $nord4 0px 6px 9px 0px;
+
+    a {
+        color: $text-color-black;
+
+        &:hover {
+            color: $nord8;
+        }
+    }
 
 }
 

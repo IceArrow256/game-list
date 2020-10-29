@@ -82,13 +82,25 @@
     <table>
         <tr class="table-header">
             {% for key in keys %}
-            <th>{{key|safe}}</th>
+            <th>{{key}}</th>
             {% endfor %}
         </tr>
         {% for row in data %}
         <tr>
-            {% for element in row %}
-            <td>{{element|escape}}</td>
+            {% for key,value in row.items %}
+            {% if user.is_authenticated and key == 'id' %}
+            {% if category == 'Game' %}
+            {% if value.1 %}
+            <td><a href="{% url 'delete' 'GameInList' value.2 %}">Del</a></td>
+            {% else %}
+            <td><a href="{% url 'create' value.0 %}">Add</a></td>
+            {% endif %}
+            {% endif %}
+            <td><a href="{% url 'update' category value.0 %}">Edit</a></td>
+            <td><a href="{% url 'delete' category value.0 %}">Del</a></td>
+            {% else %}
+            <td>{{value}}</td>
+            {% endif %}
             {% endfor %}
         </tr>
         {% endfor %}
