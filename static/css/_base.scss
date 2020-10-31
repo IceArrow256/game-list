@@ -8,8 +8,12 @@ html {
     flex-direction: column;
 }
 
-main {
+.content {
     flex: 1;
+    font-family: "Roboto";
+    font-size: 1.4rem;
+    background-color: $background-content;
+    padding: 8px 0px;
 }
 
 .container {

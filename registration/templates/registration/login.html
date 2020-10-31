@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="registration-container">
-    <form method="post" class="login">
+<div class="registration__inner">
+    <form method="post" class="card">
         <h1>Log in</h1>
         {% csrf_token %}
         {{ form.as_p }}

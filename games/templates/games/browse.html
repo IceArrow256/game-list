@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Games · Game list{% endblock %}
+
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'games/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Browse {{category}}</h1>
+    <div class="category-nav">
+        <a class="category__link add-link hidden">Add {{category}}</a>
+        <div>
+            <a class="category__link" href=" {% url 'browse' 'Game' %}">Games</a>
+            <a class='category__link' href="{% url 'browse' 'Platform' %}">Platforms</a>
+            <a class='category__link' href="{% url 'browse' 'Series' %}">Series</a>
+            <a class='category__link' href="{% url 'browse' 'Developer' %}">Developers</a>
+            <a class='category__link' href="{% url 'browse' 'Country' %}">Countries</a>
+        </div>
+        <a class='category__link add-link' onclick='window.open("{% url 'create' category %}")'>Add {{category}}</a>
+    </div>
+</div>
+<div class="list">
+    <div class="card panel">
+        <h2>Sorting and Filtration</h2>
+        <form class="sort-and-filt">
+            <label for="sort">{{form.sort.label}}</label>
+            {{form.sort}}
+            {% if category == 'Game' %}
+            <label for="platform">{{form.platform.label}}</label>
+            {{form.platform}}
+            <label for="series">{{form.series.label}}</label>
+            {{form.series}}
+            <label for="release">{{form.developer.label}}</label>
+            {{form.developer}}
+            {% endif %}
+            {% if category == 'Game' or category == 'Developer' %}
+            <label for="country">{{form.country.label}}</label>
+            {{form.country}}
+            {% endif %}
+            {% if category == 'Game' %}
+            <label for="release">{{form.release.label}}</label>
+            {{form.release}}
+            {% endif %}
+        </form>
+    </div>
+    <div class="list__inner">
+        {% for card in data %}
+        <div class="card">
+            <h2>{{card.Name}}</h2>
+            <div class="game-card">
+                <div class="game-card__inner">
+                    <div>
+                        <img class="game__img" src="https://via.placeholder.com/72x100.png" alt="" height="100px" width="72">
+                    </div>
+                    <div>
+                        {% for key,value in card.Data.items %}
+                        <p><b>{{key}}:</b> {{value}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    {% if category == 'Game' %}
+                    <p><b>Score:</b> {{card.Score}}</p>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    {% if category == 'Game' %}
+                    {% if card.game_in_list_id %}
+                    <p><a class="link-button" id="list{{card.game_in_list_id}}" onclick="deleteFromList({{card.game_in_list_id}})">Delete from list</a></p>
+                    {% else %}
+                    <p><a class="link-button" id="game{{card.id}}" onclick="addToList({{card.id}})">Add to list</a></p>
+                    {% endif %}
+                    {% endif %}
+                    <p><a class="link-button" onclick="window.open('{% url 'update' category card.id %}')">Edit</a></p>
+                    <p><a class="link-button" onclick="deleteByCategory('{{category}}', {{card.id}})">Delete</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="card">
+    <div class="category-page">
+        {% if data.has_previous %}
+        <a class="page category__link" href="?page=1">&laquo; First</a>
+        <a class="page category__link" href="?page={{ data.previous_page_number }}">Previous</a>
+        {% else %}
+        <div class="category__link hidden">&laquo; First</div>
+        <div class="category__link hidden">Previous</div>
+        {% endif %}
+        <span class="category__text">
+            Page {{ data.number }} of {{ data.paginator.num_pages }}.
+        </span>
+        {% if data.has_next %}
+        <a class="page category__link" href="?page={{ data.next_page_number }}">Next </a>
+        <a class="page category__link" href="?page={{ data.paginator.num_pages }}">Last &raquo;</a>
+        {% else %}
+        <a class="category__link hidden">Next</a>
+        <a class="category__link hidden">Last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'games/js/games.js' %}"></script>
+{% endblock scripts %}

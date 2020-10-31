@@ -14,20 +14,20 @@ def get_years():
 
 
 SORT_CHOICES_ALL = [
+    ('-score', 'Score (321)'),
     ('-release', 'Release (321)'),
     ("name", 'Name (ABC)'),
     ('platform__name', 'Platform (ABC)'),
     ('series__name', 'Series (ABC)'),
     ('developer__name', 'Developer (ABC)'),
     ('developer__country__name', 'Country (ABC)'),
-    ('-score', 'Score (321)'),
     ('release', 'Release (123)'),
+    ('score', 'Score (123)'),
     ("-name", 'Name (CBA)'),
     ('-platform__name', 'Platform (CBA)'),
     ('-series__name', 'Series (CBA)'),
     ('-developer__name', 'Developer (CBA)'),
     ('-developer__country__name', 'Country (CBA)'),
-    ('score', 'Score (123)'),
 ]
 
 SORT_CHOICES_NAME = [
@@ -48,7 +48,7 @@ class FilterFormGames(DF.Form):
                           widget=DF.Select(
                               attrs={'onchange': 'form.submit()'}),
                           choices=SORT_CHOICES_ALL,
-                          initial='-release',
+                          initial='-score',
                           required=True,
                           )
     platform = DF.ModelChoiceField(label='Filter by Platform',

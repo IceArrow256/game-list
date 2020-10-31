@@ -1,0 +1,19 @@
+.category {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.category__link {
+  font-family: "Overpass";
+  font-weight: 600;
+  font-size: 1.6rem;
+  padding: 0 8px;
+  transition: color 0.25s;
+  text-decoration: none;
+}
+
+.category__link:hover {
+  color: #88c0d0;
+  text-decoration: underline;
+}

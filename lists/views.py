@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 import datetime as DT
+import json
 
 import django.http as DH
 import django.db.models as DDM
@@ -35,7 +36,8 @@ def get_games_in_list_dict(games_in_list):
                      'country': game_in_list.game.developer.country.name,
                      'release': game_in_list.game.release.isoformat(),
                      'game_list_type': game_in_list.game_list_type.name,
-                     'finished': finished, 'score': score,
+                     'finished': finished, 
+                     'score': score,
                      'id': game_in_list.id})
     return keys, data
 
@@ -118,7 +120,11 @@ def create(request, id):
         game_in_list = LM.GameInList(
             user=request.user, game=game, game_list_type=game_list_type, score=0)
         game_in_list.save()
-    return redirect('games')
+    print(game_in_list.id)
+    response = {
+        "id": game_in_list.id
+    }
+    return DH.JsonResponse(response)
 
 
 def get_score(count, avg):
@@ -142,6 +148,8 @@ def update(request, id, category = 'All'):
             avg = LM.GameInList.objects.all().filter(game=game).exclude(score=0).aggregate(DDM.Avg('score'))
             game.score = get_score(n, avg['score__avg'])
             game.save()
+            
+            # return render(request, 'close.html')
             return redirect('lists', category)
     else:
         form = LF.GameInListCreateForm(instance=game_in_list)
@@ -162,4 +170,7 @@ def delete(request, id=None):
     game.score = get_score(n, avg['score__avg'])
     game.save()
     game_in_list.delete()
-    return redirect('games')
+    response = {
+        "id": game.id
+    }
+    return DH.JsonResponse(response)

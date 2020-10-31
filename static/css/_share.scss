@@ -5,12 +5,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@600;800&family=Roboto&display=swap');
 
 
-// Old share
-* {
-    font-family: "Roboto";
-    font-size: 1.4rem;
-}
-
 button {
     background-color: $nord2;
     border-color: $nord0;
@@ -52,16 +46,85 @@ select {
     text-align: center;
 }
 
+// static and profile
+* {
+    color: $text-color-black;
+}
+
+.card {
+    background-color: white;
+    color: $text-color-black;
+    border-radius: 8px;
+    padding: 2em;
+    margin: 8px;
+    padding: 16px;
+    box-shadow: $nord4 0px 6px 9px 0px;
+
+    ul {
+        list-style-position: inside;
+    }
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6,
-label,
-span,
-ul {
-    color: $text-color-black;
+h3 {
+    text-align: center;
+    margin: 4px;
+}
 
+@media only screen and (max-width: 576px) {
+    .card {
+        flex: 100%;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .card {
+        flex: 25%;
+    }
+}
+
+.category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.category__link {
+    font-family: "Overpass";
+    font-weight: 600;
+    font-size: 1.6rem;
+    padding: 8px;
+    transition: color 0.25s;
+    text-decoration: none;
+
+    &:hover {
+        color: #88c0d0;
+        text-decoration: underline;
+    }
+}
+
+.category__text {
+    font-family: "Overpass";
+    font-weight: 600;
+    font-size: 1.6rem;
+    padding: 8px;
+}
+
+.link-button {
+    transition: color 0.25s;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+        color: #88c0d0;
+        text-decoration: underline;
+    }
 }

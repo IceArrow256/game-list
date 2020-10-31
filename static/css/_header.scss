@@ -3,10 +3,24 @@
 
 .nav__link,
 .header__link,
-.nav_span {
+.nav_span,
+.header__inner__link {
     color: $text-color-white;
     padding: 8px;
 }
+
+.nav__link,
+.header__link,
+.header__inner__link {
+    text-decoration: none;
+    transition: color 0.25s;
+
+    &:hover {
+        color: $hover;
+        text-decoration: underline;
+    }
+}
+
 
 
 .header__inner {

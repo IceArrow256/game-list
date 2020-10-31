@@ -1,3 +1,5 @@
+import datetime as DT
+
 import django.forms as DF
 
 import lists.models as LM
@@ -108,3 +110,10 @@ class GameInListCreateForm(DF.ModelForm):
         widgets = {
             'finished': DF.DateInput(attrs={'type': 'date'}),
         }
+
+    def clean_finished(self):
+        game_list_type = self.cleaned_data['game_list_type']
+        data = self.cleaned_data['finished']
+        if not data and game_list_type.name == 'Completed':
+            data = DT.date.today()
+        return data

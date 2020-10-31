@@ -1,0 +1,38 @@
+.registration__inner {
+    display: grid;
+}
+
+.card {
+    p {
+        display: flex;
+        flex-wrap: wrap;
+
+        >* {
+            flex: 100%;
+        }
+    }
+
+    >* {
+        >* {
+            margin: 4px 0;
+        }
+    }
+
+    ul {
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .registration__inner {
+        grid-template-columns: auto;
+        justify-content: stretch;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .registration__inner {
+        grid-template-columns: 512px;
+        justify-content: center;
+    }
+}

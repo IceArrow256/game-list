@@ -1,0 +1,21 @@
+@import 'static/css/color';
+
+.category {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.category__link {
+    font-family: "Overpass";
+    font-weight: 600;
+    font-size: 1.6rem;
+    padding: 0 8px;
+    transition: color 0.25s;
+    text-decoration: none;
+
+    &:hover {
+        color: $hover;
+        text-decoration: underline;
+    }
+}

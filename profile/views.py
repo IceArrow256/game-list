@@ -94,5 +94,5 @@ def profile(request, category='All'):
                 lists.append((game_list_type, result))
         lists = sorted(lists, key=get_key_last, reverse=True)[:10]
         context["lists"] = lists
-        context['category'] = category
+    context['category'] = category
     return render(request, 'profile/profile.html', context)

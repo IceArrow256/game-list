@@ -2,18 +2,23 @@
 
 {% block title %}Games · Game list{% endblock %}
 
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'games/css/style.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="form-container">
-    <form method="post" class="create">
+<div class="change__inner">
+    <form method="post" class="card change-card">
         <h1>{{action}} {{category}}</h1>
         {% csrf_token %}
         {{ form.as_p }}
-        <div class="form-links">
-            {% if category != 'Country' %} <a href="{% url 'create' 'Country' %}">Create country</a>{% endif %}
-            {% if category != 'Platform' %} <a href="{% url 'create' 'Platform' %}">Create platform</a>{% endif %}
-            {% if category != 'Series' %} <a href="{% url 'create' 'Series' %}">Create series</a>{% endif %}
-            {% if category != 'Developer' %}<a href="{% url 'create' 'Developer' %}">Create developer</a>{% endif %}
-            {% if category != 'Game' %} <a href="{% url 'create' 'Game' %}">Create game</a>{% endif %}
+        <div class='category-nav'>
+            {% if category != 'Country' %} <a class="link-button" href="{% url 'create' 'Country' %}">Create country</a>{% endif %}
+            {% if category != 'Platform' %} <a class="link-button" href="{% url 'create' 'Platform' %}">Create platform</a>{% endif %}
+            {% if category != 'Series' %} <a class="link-button" href="{% url 'create' 'Series' %}">Create series</a>{% endif %}
+            {% if category != 'Developer' %}<a class="link-button" href="{% url 'create' 'Developer' %}">Create developer</a>{% endif %}
+            {% if category != 'Game' %} <a class="link-button" href="{% url 'create' 'Game' %}">Create game</a>{% endif %}
         </div>
         <button type="submit">Apply</button>
     </form>
