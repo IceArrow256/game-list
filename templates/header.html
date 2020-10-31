@@ -1,22 +1,26 @@
-<header>
-    <div class="header">
-        <nav>
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
             {% load static %}
-            <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" alt="Site logo"></a>
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'games' %}">Games</a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'lists' %}">Lists</a>
-            {% endif %}
-        </nav>
-        <nav>
-            {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="nav-profile">Logout</a>
-            <a href="{% url 'profile' %}" class="nav-username">{{user.username}}</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="nav-profile">Login</a>
-            <a href="{% url 'sign-up' %}" class="nav-profile">Sign up</a>
-            {% endif %}
-        </nav>
+            <a class="header__inner__link mobile-logo" href="{% url 'home' %}"><img src="{% static 'logo.png' %}" height="48px" alt="Site logo"></a>
+            <nav class="nav">
+                <a class="nav__link desktop-logo" href="{% url 'home' %}"><img src="{% static 'logo.png' %}" height="48px" alt="Site logo"></a>
+                <a class="nav__link" href="{% url 'home' %}">Home</a>
+                {% if user.is_authenticated %}
+                <a class="nav__link" href="{% url 'lists' %}">Lists</a>
+                {% endif %}
+                <a class="nav__link" href="{% url 'games' %}">Browse</a>
+            </nav>
+
+            <nav class="nav">
+                {% if user.is_authenticated %}
+                <a class="nav__link" href=" {% url 'logout' %}">Logout</a>
+                <a class="nav__link" href="{% url 'profile' %}">{{user.username}}</a>
+                {% else %}
+                <a class="nav__link" href="{% url 'login' %}">Login</a>
+                <a class="nav__link" href="{% url 'sign-up' %}">Sign up</a>
+                {% endif %}
+            </nav>
+        </div>
     </div>
 </header>

@@ -76,7 +76,7 @@ def profile(request, category='All'):
         result = query.filter(finished__gte=DT.date(year, 1, 1), finished__lt=DT.date(year+1, 1, 1)).count()
         if result:
             years.append((year, result))
-    years = sorted(years, key=get_key_fist, reverse=True)[:10]
+    years = sorted(years, key=get_key_fist, reverse=True)
     context["years_finished"] = years
     # Countries
     countries = []

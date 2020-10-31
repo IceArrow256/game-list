@@ -4,7 +4,7 @@
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    background-color: $hf-color;
+    background-color: $background;
     box-shadow: $nord4 0px 6px 9px 0px;
     margin: 16px;
 
@@ -77,7 +77,7 @@ table tr:first-child th:last-child {
 }
 
 th {
-    background-color: $hf-color;
+    background-color: $background;
     color: $text-color-white;
     padding: 8px;
 }
@@ -90,7 +90,7 @@ td {
 th,
 tr,
 td {
-    border: 1px solid $hf-color;
+    border: 1px solid $background;
 }
 
 .action {

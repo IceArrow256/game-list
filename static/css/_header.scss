@@ -1,0 +1,70 @@
+@import 'color';
+
+
+.nav__link,
+.header__link,
+.nav_span {
+    color: $text-color-white;
+    padding: 8px;
+}
+
+
+.header__inner {
+    align-items: center;
+    height: 100%;
+}
+
+.header {
+    font-family: "Overpass";
+    font-weight: 600;
+    font-size: 1.6rem;
+    background-color: $background;
+    width: 100%;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 576px) {
+    .header__inner {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: auto;
+    }
+
+    .header {
+        text-align: center;
+    }
+
+    .desktop-logo {
+        display: none;
+    }
+
+    .mobile-logo {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .header__inner {
+        display: flex;
+        padding: 0 16px;
+        justify-content: space-between;
+    }
+
+    .header {
+        height: 64px;
+        position: fixed;
+    }
+
+    .desktop-logo {
+        display: block;
+    }
+
+    .mobile-logo {
+        display: none;
+    }
+}

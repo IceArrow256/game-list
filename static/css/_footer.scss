@@ -1,0 +1,50 @@
+@import 'color';
+
+.footer__inner {
+    align-items: center;
+    height: 100%;
+}
+
+.footer {
+    font-family: "Overpass";
+    font-weight: 600;
+    font-size: 1.6rem;
+    background-color: $background;
+    width: 100%;
+}
+
+.nav__right {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+}
+
+.footer__inner {
+    align-items: center;
+    height: 100%;
+}
+
+@media only screen and (max-width: 576px) {
+    .footer__inner {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: auto;
+    }
+
+    .footer {
+        text-align: center;
+    }
+
+}
+
+@media only screen and (min-width: 576px) {
+    .footer__inner {
+        display: flex;
+        padding: 0 16px;
+        justify-content: space-between;
+    }
+
+    .footer {
+        height: 64px;
+    }
+}
