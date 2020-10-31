@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 import datetime as DT
 
 import django.http as DH
+import django.db.models as DDM
 import stats.utils as SU
 
 import games.models as GM
@@ -120,6 +121,15 @@ def create(request, id):
     return redirect('games')
 
 
+def get_score(count, avg):
+    n = 2
+    print(count, n, avg)
+    if count >= n:
+        return round(count/(count+n)*avg+(n)/(count+n)*7.2453, 2)
+    else:
+        return None
+
+
 def update(request, id, category = 'All'):
     context = SU.get_context(request)
     game_in_list = get_object_or_404(LM.GameInList, pk=id)
@@ -127,6 +137,11 @@ def update(request, id, category = 'All'):
         form = LF.GameInListCreateForm(request.POST, instance=game_in_list)
         if form.is_valid():
             form.save()
+            game = GM.Game.objects.get(pk=game_in_list.game.id)
+            n = LM.GameInList.objects.all().filter(game=game).exclude(score=0).count()
+            avg = LM.GameInList.objects.all().filter(game=game).exclude(score=0).aggregate(DDM.Avg('score'))
+            game.score = get_score(n, avg['score__avg'])
+            game.save()
             return redirect('lists', category)
     else:
         form = LF.GameInListCreateForm(instance=game_in_list)
@@ -141,5 +156,10 @@ def update(request, id, category = 'All'):
 
 def delete(request, id=None):
     game_in_list = get_object_or_404(LM.GameInList, pk=id)
+    game = GM.Game.objects.get(pk=game_in_list.game.id)
+    n = LM.GameInList.objects.all().filter(game=game).exclude(score=0).count()
+    avg = LM.GameInList.objects.all().filter(game=game).exclude(score=0).aggregate(DDM.Avg('score'))
+    game.score = get_score(n, avg['score__avg'])
+    game.save()
     game_in_list.delete()
     return redirect('games')
