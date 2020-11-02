@@ -46,7 +46,8 @@ SORT_CHOICES_COUNTRY = [
 class FilterFormGames(DF.Form):
     search = DF.CharField(label='Search',
                           widget=DF.TextInput(attrs={'type': 'search',
-                                                 'onsearch': 'form.submit()'}),
+                                                     'onsearch': 'form.submit()'}),
+                          required=False
                           )
     sort = DF.ChoiceField(label='Sort',
                           widget=DF.Select(
@@ -95,7 +96,8 @@ class FilterFormGames(DF.Form):
 class FilterFormName(DF.Form):
     search = DF.CharField(label='Search',
                           widget=DF.TextInput(attrs={'type': 'search',
-                                                 'onsearch': 'form.submit()'}),
+                                                     'onsearch': 'form.submit()'}),
+                          required=False
                           )
     sort = DF.ChoiceField(label='Sort',
                           widget=DF.Select(
@@ -109,7 +111,8 @@ class FilterFormName(DF.Form):
 class FilterFormContry(DF.Form):
     search = DF.CharField(label='Search',
                           widget=DF.TextInput(attrs={'type': 'search',
-                                                 'onsearch': 'form.submit()'}),
+                                                     'onsearch': 'form.submit()'}),
+                          required=False
                           )
     sort = DF.ChoiceField(label='Sort',
                           widget=DF.Select(

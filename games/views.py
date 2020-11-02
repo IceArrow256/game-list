@@ -14,19 +14,13 @@ import lists.views as LV
 def get_games_dict(games, user=None):
     data = []
     for game in games:
-        if game.series:
-            series = game.series.name
-        else:
-            series = ''
-        if game.score:
-            score = game.score
-        else:
-            score = ''
+        series = game.series
+        score = game.score
         game_in_list_id = None
         game_in_list = LM.GameInList.objects.all().filter(user=user, game=game).first()
         if user and game_in_list:
             game_in_list_id = game_in_list.id
-        data.append({'Name': game.name, 'Data': {'Platform': game.platform.name,
+        data.append({'Name': game.name, 'data': {'Platform': game.platform.name,
                                                  'Series': series,
                                                  'Developer': game.developer.name,
                                                  'Country': game.developer.country.name,
@@ -54,7 +48,7 @@ def get_series_dict(series):
 def get_developers_dict(developers):
     data = []
     for developer in developers:
-        data.append({'Name': developer.name, 'Data': {
+        data.append({'Name': developer.name, 'data': {
                      'Country': developer.country.name},
                      'id': developer.id})
     return data

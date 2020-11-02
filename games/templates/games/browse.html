@@ -68,7 +68,9 @@
                     </div>
                     <div>
                         {% for key,value in card.Data.items %}
-                        <p><b>{{key}}:</b> {{value}}</p>
+                        {% if value %}
+                            <p><b>{{key}}:</b> {{value}}</p>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>

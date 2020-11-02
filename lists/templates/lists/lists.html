@@ -56,18 +56,18 @@
                             width="72">
                     </div>
                     <div>
-                        {% for key,value in card.Data.items %}
+                        {% for key,value in card.data.items %}
                         {% if category != 'All' and key == 'List type' %}
                         {% else %}
-                        <p><b>{{key}}:</b> {{value}}</p>
+                        {% if value %}
+                            <p><b>{{key}}:</b> {{value}}</p>
+                        {% endif %}
                         {% endif %}
                         {% endfor %}
                     </div>
                 </div>
                 <div>
-                    {% if card.Score %}
                     <p><b>Score:</b> {{card.Score}}</p>
-                    {% endif %}
                     <p><a class="link-button" onclick="deleteFromList({{card.id}})">Delete from list</a></p>
                     <p><a class="link-button" onclick="window.open('{% url 'update' 'GameInList' card.id %}')">Edit</a>
                     </p>

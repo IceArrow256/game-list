@@ -54,7 +54,8 @@ SORT_CHOICES_ALL = [
 class FilterFormGamesInList(DF.Form):
     search = DF.CharField(label='Search',
                           widget=DF.TextInput(attrs={'type': 'search',
-                                                 'onsearch': 'form.submit()'}),
+                                                     'onsearch': 'form.submit()'}),
+                          required=False
                           )
     sort = DF.ChoiceField(label='Sort',
                           widget=DF.Select(
@@ -100,11 +101,11 @@ class FilterFormGamesInList(DF.Form):
                              required=False,
                              )
     finished = DF.ChoiceField(label='Filter by Finished',
-                             widget=DF.Select(
-                                 attrs={'onchange': 'form.submit()'}),
-                             choices=get_years_finished(),
-                             required=False,
-                             )
+                              widget=DF.Select(
+                                  attrs={'onchange': 'form.submit()'}),
+                              choices=get_years_finished(),
+                              required=False,
+                              )
 
 
 class GameInListCreateForm(DF.ModelForm):
