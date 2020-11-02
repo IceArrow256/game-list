@@ -19,8 +19,10 @@ def home(request):
     def get_years():
         years = []
         for year in GM.Game.objects.all().values('release'):
-            if year not in years:
-                years.append(int(year['release'].year))
+            int_year = int(year['release'].year)
+            if int_year not in years:
+                years.append(int_year)
+        print(years)
         return years
     context = SU.get_context(request)
     # Global stats
@@ -36,8 +38,9 @@ def home(request):
     # Platform
     platforms = []
     for platform in GM.Platform.objects.all():
-        platforms.append(
-            (platform, GM.Game.objects.all().filter(platform=platform).count()))
+        result = GM.Game.objects.all().filter(platform=platform).count()
+        if result:
+            platforms.append((platform, result))
     platforms = sorted(platforms, key=get_key_last, reverse=True)[:10]
     context["platforms"] = platforms
     # Series

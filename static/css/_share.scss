@@ -128,3 +128,138 @@ h3 {
         text-decoration: underline;
     }
 }
+
+// Lists and Games
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sort-and-filt {
+    display: grid;
+    grid-template-columns: auto;
+    align-items: center;
+
+    * {
+        padding: 8px;
+    }
+}
+
+
+
+.add-link {
+    background-color: $nord11;
+    padding: 4px 8px;
+    border-radius: 8px;
+    color: $text-color-white;
+    cursor: pointer;
+}
+
+.game-card {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+
+    p {
+        margin: 4px;
+    }
+}
+
+.game-card__inner {
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: start;
+
+    div {
+        padding: 0 8px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .panel {
+        flex: 100%;
+    }
+
+    .list__inner {
+        flex: 100%;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .panel {
+        flex: 10%;
+    }
+
+    .list__inner {
+        flex: 70%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        justify-content: stretch;
+        align-items: stretch;
+    }
+}
+
+.category-page {
+    display: flex;
+    justify-content: center;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.category-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.change__inner {
+    display: grid;
+}
+
+.change-card {
+    display: flex;
+    flex-wrap: wrap;
+
+    * {
+        margin: 4px;
+        flex: 100%;
+    }
+
+    p {
+        display: flex;
+        flex-wrap: wrap;
+
+        >* {
+            flex: 100%;
+        }
+    }
+
+    >* {
+        >* {
+            margin: 4px 0;
+        }
+    }
+
+    ul {
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .change__inner {
+        grid-template-columns: auto;
+        justify-content: stretch;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .change__inner {
+        grid-template-columns: 512px;
+        justify-content: center;
+    }
+}
