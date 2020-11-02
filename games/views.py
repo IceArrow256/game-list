@@ -9,7 +9,6 @@ import games.form as GF
 import games.models as GM
 import lists.models as LM
 import lists.views as LV
-import stats.utils as SU
 
 
 def get_games_dict(games, user=None):
@@ -55,8 +54,8 @@ def get_series_dict(series):
 def get_developers_dict(developers):
     data = []
     for developer in developers:
-        data.append({'Name': developer.name, 'Data':{
-                     'Country': developer.country.name}, 
+        data.append({'Name': developer.name, 'Data': {
+                     'Country': developer.country.name},
                      'id': developer.id})
     return data
 
@@ -64,7 +63,7 @@ def get_developers_dict(developers):
 def get_countries_dict(countries):
     data = []
     for country in countries:
-        data.append({'Name': country.name, 'id': country.id,})
+        data.append({'Name': country.name, 'id': country.id, })
     return data
 
 
@@ -98,27 +97,33 @@ def get_object(category, id):
 
 
 def browse(request, category='Game'):
-    context = SU.get_context(request)
+    context = {}
     data = []
     form = None
 
     if category == 'Game':
         form = GF.FilterFormGames(request.GET)
         if form.is_valid():
+            search = form.cleaned_data.get('search')
             sort = form.cleaned_data.get('sort')
             platform = form.cleaned_data.get('platform')
             series = form.cleaned_data.get('series')
             developer = form.cleaned_data.get('developer')
             country = form.cleaned_data.get('country')
             release = form.cleaned_data.get('release')
+            not_in_my_list = form.cleaned_data.get('not_in_my_list')
         else:
+            search = form['search'].initial
             sort = form['sort'].initial
             platform = form['platform'].initial
             series = form['series'].initial
             developer = form['developer'].initial
             country = form['country'].initial
             release = form['release'].initial
-        games = GM.Game.objects.all().order_by(f'{sort}')
+            not_in_my_list = form['not_in_my_list'].initial
+        games = GM.Game.objects.all()
+        if search:
+            games = games.filter(name__contains=search)
         if platform:
             games = games.filter(platform=platform)
         if series:
@@ -131,38 +136,53 @@ def browse(request, category='Game'):
             release = int(release)
             games = games.filter(release__gte=DT.date(
                 release, 1, 1), release__lt=DT.date(release+1, 1, 1))
+        games = games.order_by(f'{sort}')
         if not request.user.is_authenticated:
             data = get_games_dict(games)
         else:
+            if not_in_my_list:
+                for game_in_list in LM.GameInList.objects.all().filter(user=request.user):
+                    games = games.exclude(pk=game_in_list.game.pk)
             data = get_games_dict(games, request.user)
-
     if category == 'Platform':
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
+            search = form.cleaned_data.get('search')
             sort = form.cleaned_data.get('sort')
         else:
+            search = form['search'].initial
             sort = form['sort'].initial
         platforms = GM.Platform.objects.all().order_by(f'{sort}')
+        if search:
+            platforms = platforms.filter(name__contains=search)
         data = get_platforms_dict(platforms)
 
     if category == 'Series':
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
+            search = form.cleaned_data.get('search')
             sort = form.cleaned_data.get('sort')
         else:
+            search = form['search'].initial
             sort = form['sort'].initial
         series = GM.Series.objects.all().order_by(f'{sort}')
+        if search:
+            series = series.filter(name__contains=search)
         data = get_series_dict(series)
 
     if category == 'Developer':
         form = GF.FilterFormContry(request.GET)
         if form.is_valid():
+            search = form.cleaned_data.get('search')
             sort = form.cleaned_data.get('sort')
             country = form.cleaned_data.get('country')
         else:
+            search = form['search'].initial
             sort = form['sort'].initial
             country = form['country'].initial
         developers = GM.Developer.objects.all().order_by(f'{sort}')
+        if search:
+            developers = developers.filter(name__contains=search)
         if country:
             developers = developers.filter(country=country)
         data = get_developers_dict(developers)
@@ -170,10 +190,14 @@ def browse(request, category='Game'):
     if category == 'Country':
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
+            search = form.cleaned_data.get('search')
             sort = form.cleaned_data.get('sort')
         else:
+            search = form['search'].initial
             sort = form['sort'].initial
         countries = GM.Country.objects.all().order_by(f'{sort}')
+        if search:
+            countries = countries.filter(name__contains=search)
         data = get_countries_dict(countries)
 
     paginator = DCP.Paginator(data, 8)  # Show 25 contacts per page.
@@ -187,7 +211,7 @@ def browse(request, category='Game'):
 
 
 def create(request, category=None):
-    context = SU.get_context(request)
+    context = {}
     if request.method == 'POST':
         form = create_form(request.POST, category)
         if form.is_valid():
@@ -207,7 +231,7 @@ def create(request, category=None):
 def update(request, category='Game', id=None):
     if category == 'GameInList':
         return LV.update(request, id)
-    context = SU.get_context(request)
+    context = {}
     obj = get_object(category, id)
     if request.method == 'POST':
         form = create_form(request.POST, category, obj)

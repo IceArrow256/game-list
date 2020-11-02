@@ -26,6 +26,8 @@
     <div class="card panel">
         <h2>Sorting and Filtration</h2>
         <form class="sort-and-filt">
+            <label for="search">{{form.search.label}}</label>
+            {{form.search}}
             <label for="sort">{{form.sort.label}}</label>
             {{form.sort}}
             {% if category == 'Game' %}
@@ -43,7 +45,15 @@
             {% if category == 'Game' %}
             <label for="release">{{form.release.label}}</label>
             {{form.release}}
+            {% if user.is_authenticated %}
+            <div style="padding: 8px 0;">
+            <label for="sort">{{form.not_in_my_list.label}}:</label>
+            {{form.not_in_my_list}}
+            </div>
             {% endif %}
+            {% endif %}
+
+
         </form>
     </div>
     <div class="list__inner">
@@ -53,7 +63,8 @@
             <div class="game-card">
                 <div class="game-card__inner">
                     <div>
-                        <img class="game__img" src="https://via.placeholder.com/72x100.png" alt="" height="100px" width="72">
+                        <img class="game__img" src="https://via.placeholder.com/72x100.png" alt="" height="100px"
+                            width="72">
                     </div>
                     <div>
                         {% for key,value in card.Data.items %}
@@ -68,7 +79,8 @@
                     {% if user.is_authenticated %}
                     {% if category == 'Game' %}
                     {% if card.game_in_list_id %}
-                    <p><a class="link-button" id="list{{card.game_in_list_id}}" onclick="deleteFromList({{card.game_in_list_id}})">Delete from list</a></p>
+                    <p><a class="link-button" id="list{{card.game_in_list_id}}"
+                            onclick="deleteFromList({{card.game_in_list_id}})">Delete from list</a></p>
                     {% else %}
                     <p><a class="link-button" id="game{{card.id}}" onclick="addToList({{card.id}})">Add to list</a></p>
                     {% endif %}

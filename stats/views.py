@@ -5,7 +5,7 @@ import datetime as DT
 import django.http as DH
 import django.contrib.auth.models as DCAM
 
-import stats.utils as SU
+
 import games.models as GM
 
 
@@ -24,7 +24,7 @@ def home(request):
                 years.append(int_year)
         print(years)
         return years
-    context = SU.get_context(request)
+    context = {}
     # Global stats
     global_stats = []
     global_stats.append(('Countries', GM.Country.objects.all().count()))

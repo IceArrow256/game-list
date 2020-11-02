@@ -6,7 +6,6 @@ import json
 import django.core.paginator as DCP
 import django.db.models as DDM
 import django.http as DH
-import stats.utils as SU
 
 import games.models as GM
 import lists.models as LM
@@ -43,7 +42,7 @@ def get_games_in_list_dict(games_in_list):
 
 
 def lists(request, category='All'):
-    context = SU.get_context(request)
+    context = {}
     data = []
     form = LF.FilterFormGamesInList(request.GET)
     games_in_list = LM.GameInList.objects.all().filter(user=request.user)
@@ -63,6 +62,7 @@ def lists(request, category='All'):
     if game_list_type:
         games_in_list = games_in_list.filter(game_list_type=game_list_type)
     if form.is_valid():
+        search = form.cleaned_data.get('search')
         sort = form.cleaned_data.get('sort')
         platform = form.cleaned_data.get('platform')
         series = form.cleaned_data.get('series')
@@ -71,18 +71,19 @@ def lists(request, category='All'):
         game_list_type = form.cleaned_data.get('game_list_type')
         release = form.cleaned_data.get('release')
         finished = form.cleaned_data.get('finished')
-
     else:
+        search = form['search'].initial
         sort = form['sort'].initial
         platform = form['platform'].initial
         series = form['series'].initial
         developer = form['developer'].initial
         country = form['country'].initial
         game_list_type = form['game_list_type'].initial
-
         release = form['release'].initial
         finished = form['finished'].initial
     games_in_list = games_in_list.order_by(f'{sort}')
+    if search:
+        games_in_list = games_in_list.filter(game__name__contains=search)
     if platform:
         games_in_list = games_in_list.filter(game__platform=platform)
     if series:
@@ -138,7 +139,7 @@ def get_score(count, avg):
 
 
 def update(request, id, category='All'):
-    context = SU.get_context(request)
+    context = {}
     game_in_list = get_object_or_404(LM.GameInList, pk=id)
     if request.method == 'POST':
         form = LF.GameInListCreateForm(request.POST, instance=game_in_list)

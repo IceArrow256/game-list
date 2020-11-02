@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 import datetime as DT
 
-import stats.utils as SU
+
 
 import games.models as GM
 import lists.models as LM
@@ -23,7 +23,7 @@ def profile(request, category='All'):
             if year['finished'] and int(year['finished'].year) not in years: 
                 years.append(int(year['finished'].year))
         return years
-    context = SU.get_context(request)
+    context = {}
     query = LM.GameInList.objects.all().filter(user=request.user)
     if category == 'All':
         pass
