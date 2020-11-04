@@ -13,16 +13,19 @@ import lists.models as LM
 def get_games_in_list_dict(games_in_list):
     data = []
     for game_in_list in games_in_list:
-        data.append({'Name': game_in_list.game.name,
+        data.append({'name': game_in_list.game.name,
+                     'img': game_in_list.game.img,
                      'data': {
                          'Platform': game_in_list.game.platform.name,
                          'Series': game_in_list.game.series,
                          'Developer': game_in_list.game.developer.name,
                          'Country': game_in_list.game.developer.country.name,
                          'Release': game_in_list.game.release.isoformat(),
+                         'Adding time': game_in_list.date.isoformat() if game_in_list.date else '',
                          'List type': game_in_list.game_list_type.name,
                          'Finished': game_in_list.finished.isoformat() if game_in_list.finished else ''},
-                     'Score': game_in_list.score,
+                     'score': game_in_list.score,
+                     'avg': game_in_list.game.score,
                      'id': game_in_list.id})
     return data
 
@@ -108,10 +111,11 @@ def create(request, id):
     return DH.JsonResponse({"id": game_in_list.id})
 
 
-def get_score(game_in_list):
-    game = GM.Game.objects.get(pk=game_in_list.game.id)
-    count = LM.GameInList.objects.all().filter(game=game).exclude(score=None).count()
-    avg = LM.GameInList.objects.all().filter(game=game).exclude(score=None).aggregate(DDM.Avg('score'))['score__avg']
+def get_score(game):
+    count = LM.GameInList.objects.all().filter(
+        game=game).exclude(score=None).count()
+    avg = LM.GameInList.objects.all().filter(game=game).exclude(
+        score=None).aggregate(DDM.Avg('score'))['score__avg']
     n = 2
     if count >= n:
         game.score = round(count/(count+n)*avg+(n)/(count+n)*7.2453, 2)
@@ -127,7 +131,7 @@ def update(request, id, category='All'):
         form = LF.GameInListCreateForm(request.POST, instance=game_in_list)
         if form.is_valid():
             form.save()
-            get_score(game_in_list)
+            get_score(game_in_list.game)
             return DS.render(request, 'close.html')
     else:
         form = LF.GameInListCreateForm(instance=game_in_list)
@@ -142,8 +146,9 @@ def update(request, id, category='All'):
 
 def delete(request, id=None):
     game_in_list = DS.get_object_or_404(LM.GameInList, pk=id)
-    get_score(game_in_list)
+    game = game_in_list.game
     game_in_list.delete()
+    get_score(game)
     response = {
         "id": game_in_list.game.id
     }

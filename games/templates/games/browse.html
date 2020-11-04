@@ -59,15 +59,15 @@
     <div class="list__inner">
         {% for card in data %}
         <div class="card">
-            <h2>{{card.Name}}</h2>
+            <h2>{{card.name}}</h2>
             <div class="game-card">
                 <div class="game-card__inner">
                     <div>
-                        <img class="game__img" src="https://via.placeholder.com/72x100.png" alt="" height="100px"
+                        <img class="game__img" src="{% if card.img %}{{card.img}}{% else %}https://via.placeholder.com/72x100.png{% endif %}" alt="" height="100px"
                             width="72">
                     </div>
                     <div>
-                        {% for key,value in card.Data.items %}
+                        {% for key,value in card.data.items %}
                         {% if value %}
                             <p><b>{{key}}:</b> {{value}}</p>
                         {% endif %}
@@ -76,7 +76,7 @@
                 </div>
                 <div>
                     {% if category == 'Game' %}
-                    <p><b>Score:</b> {{card.Score}}</p>
+                    <p><b>Score:</b> {{card.score}}</p>
                     {% endif %}
                     {% if user.is_authenticated %}
                     {% if category == 'Game' %}

@@ -39,6 +39,7 @@ SORT_CHOICES_ALL = [
     ('game__developer__country__name', 'Country (ABC)'),
     ('game_list_type', 'List (ABC)'),
     ('-score', 'Score (321)'),
+    ('-game__score', 'Average Score (321)'),
     ('game__release', 'Release (123)'),
     ('finished', 'Finished (123)'),
     ("-game__name", 'Game (CBA)'),
@@ -48,6 +49,7 @@ SORT_CHOICES_ALL = [
     ('-game__developer__country__name', 'Country (CBA)'),
     ('-game_list_type', 'List (CBA)'),
     ('score', 'Score (123)'),
+    ('game__score', 'Average Score (123)'),
 ]
 
 
@@ -113,6 +115,7 @@ class GameInListCreateForm(DF.ModelForm):
         model = LM.GameInList
         fields = ('game_list_type', 'score', 'finished')
         widgets = {
+            'score': DF.NumberInput(attrs={'max': 10, 'min': 1}),
             'finished': DF.DateInput(attrs={'type': 'date'}),
         }
 

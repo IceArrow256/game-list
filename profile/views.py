@@ -44,7 +44,7 @@ def profile(request, category='All'):
         result = query.filter(game__platform=platform).count()
         if result:
             platforms.append((platform, result))
-    platforms = sorted(platforms, key=get_key_last, reverse=True)[:10]
+    platforms = sorted(platforms, key=get_key_last, reverse=True)[:20]
     context["platforms"] = platforms
     # Series
     series = []
@@ -52,7 +52,7 @@ def profile(request, category='All'):
         result = query.filter(game__series=_series).count()
         if result:
             series.append((_series, result))
-    series = sorted(series, key=get_key_last, reverse=True)[:10]
+    series = sorted(series, key=get_key_last, reverse=True)[:20]
     context["series"] = series
     # Developers
     developers = []
@@ -60,7 +60,7 @@ def profile(request, category='All'):
         result = query.filter(game__developer=developer).count()
         if result:
             developers.append((developer, result))
-    developers = sorted(developers, key=get_key_last, reverse=True)[:10]
+    developers = sorted(developers, key=get_key_last, reverse=True)[:20]
     context["developers"] = developers
     # Years
     years = []
@@ -68,7 +68,7 @@ def profile(request, category='All'):
         result = query.filter(game__release__gte=DT.date(year, 1, 1), game__release__lt=DT.date(year+1, 1, 1)).count()
         if result:
             years.append((year, result))
-    years = sorted(years, key=get_key_fist, reverse=True)[:10]
+    years = sorted(years, key=get_key_fist, reverse=True)
     context["years"] = years
     # Years finished
     years = []
@@ -92,7 +92,7 @@ def profile(request, category='All'):
             result = query.filter(game_list_type=game_list_type).count()
             if result:
                 lists.append((game_list_type, result))
-        lists = sorted(lists, key=get_key_last, reverse=True)[:10]
+        lists = sorted(lists, key=get_key_last, reverse=True)[:20]
         context["lists"] = lists
     context['category'] = category
     return render(request, 'profile/profile.html', context)

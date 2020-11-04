@@ -156,7 +156,7 @@ class SeriesCreateForm(DF.ModelForm):
 class GameCreateForm(DF.ModelForm):
     class Meta:
         model = GM.Game
-        fields = ('platform', 'series', 'developer', 'name', 'release')
+        fields = ('platform', 'series', 'developer', 'name', 'release', 'img')
         widgets = {
             'release': DF.DateInput(attrs={'type': 'date'}),
         }

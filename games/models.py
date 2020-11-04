@@ -39,7 +39,7 @@ class Game(models.Model):
     name = models.CharField('Name', max_length=64)
     release = models.DateField('Release')
     score = models.FloatField("Score", blank=True, null=True)
-
+    img = models.URLField("Image url", blank=True, null=True)
     class Meta:
         unique_together = ('developer', 'name')
 

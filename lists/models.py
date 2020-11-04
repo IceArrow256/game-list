@@ -12,6 +12,7 @@ class GameListType(DD.models.Model):
 
 
 class GameInList(DD.models.Model):
+    date = DD.models.DateField("Date", auto_now=False, auto_now_add=True)
     user = DD.models.ForeignKey(DCAM.User, on_delete=DD.models.CASCADE)
     game = DD.models.ForeignKey(GM.Game, on_delete=DD.models.CASCADE)
     game_list_type = DD.models.ForeignKey(

@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
-
 import datetime as DT
 
 import django.core.paginator as DCP
+import django.shortcuts as DS
 import django.http as DH
 
 import games.form as GF
@@ -14,18 +13,17 @@ import lists.views as LV
 def get_games_dict(games, user=None):
     data = []
     for game in games:
-        series = game.series
-        score = game.score
         game_in_list_id = None
         game_in_list = LM.GameInList.objects.all().filter(user=user, game=game).first()
         if user and game_in_list:
             game_in_list_id = game_in_list.id
-        data.append({'Name': game.name, 'data': {'Platform': game.platform.name,
-                                                 'Series': series,
+        data.append({'name': game.name, 'data': {'Platform': game.platform.name,
+                                                 'Series': game.series,
                                                  'Developer': game.developer.name,
                                                  'Country': game.developer.country.name,
                                                  'Release': game.release.isoformat()},
-                     'Score': score,
+                     'score': game.score,
+                     'img': game.img,
                      'id': game.id,
                      'game_in_list_id': game_in_list_id})
     return data
@@ -34,21 +32,21 @@ def get_games_dict(games, user=None):
 def get_platforms_dict(platforms):
     data = []
     for platform in platforms:
-        data.append({'Name': platform.name, 'id': platform.id})
+        data.append({'name': platform.name, 'id': platform.id})
     return data
 
 
 def get_series_dict(series):
     data = []
     for _series in series:
-        data.append({'Name': _series.name, 'id': _series.id})
+        data.append({'name': _series.name, 'id': _series.id})
     return data
 
 
 def get_developers_dict(developers):
     data = []
     for developer in developers:
-        data.append({'Name': developer.name, 'data': {
+        data.append({'name': developer.name, 'data': {
                      'Country': developer.country.name},
                      'id': developer.id})
     return data
@@ -57,7 +55,7 @@ def get_developers_dict(developers):
 def get_countries_dict(countries):
     data = []
     for country in countries:
-        data.append({'Name': country.name, 'id': country.id, })
+        data.append({'name': country.name, 'id': country.id, })
     return data
 
 
@@ -76,7 +74,7 @@ def create_form(request_type, category, instance=None):
     return form
 
 
-def get_object(category, id):
+def get_object(category, pk):
     if category == 'Game':
         model = GM.Game
     if category == 'Platform':
@@ -87,14 +85,13 @@ def get_object(category, id):
         model = GM.Developer
     if category == 'Country':
         model = GM.Country
-    return get_object_or_404(model, pk=id)
+    return DS.get_object_or_404(model, pk=pk)
 
 
 def browse(request, category='Game'):
     context = {}
     data = []
     form = None
-
     if category == 'Game':
         form = GF.FilterFormGames(request.GET)
         if form.is_valid():
@@ -150,7 +147,6 @@ def browse(request, category='Game'):
         if search:
             platforms = platforms.filter(name__contains=search)
         data = get_platforms_dict(platforms)
-
     if category == 'Series':
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
@@ -163,7 +159,6 @@ def browse(request, category='Game'):
         if search:
             series = series.filter(name__contains=search)
         data = get_series_dict(series)
-
     if category == 'Developer':
         form = GF.FilterFormContry(request.GET)
         if form.is_valid():
@@ -180,7 +175,6 @@ def browse(request, category='Game'):
         if country:
             developers = developers.filter(country=country)
         data = get_developers_dict(developers)
-
     if category == 'Country':
         form = GF.FilterFormName(request.GET)
         if form.is_valid():
@@ -193,15 +187,13 @@ def browse(request, category='Game'):
         if search:
             countries = countries.filter(name__contains=search)
         data = get_countries_dict(countries)
-
     paginator = DCP.Paginator(data, 8)  # Show 25 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
     context['data'] = page_obj
     context['form'] = form
     context['category'] = category
-    return render(request, 'games/browse.html', context)
+    return DS.render(request, 'games/browse.html', context)
 
 
 def create(request, category=None):
@@ -210,16 +202,16 @@ def create(request, category=None):
         form = create_form(request.POST, category)
         if form.is_valid():
             form.save()
-            return render(request, 'close.html', context)
+            return DS.render(request, 'close.html', context)
     else:
         form = create_form(request.POST, category)
     context['form'] = form
     context['action'] = 'Create'
     context['category'] = category
     if request.user.is_authenticated:
-        return render(request, 'games/change.html', context)
+        return DS.render(request, 'games/change.html', context)
     else:
-        return redirect('login')
+        return DS.redirect('login')
 
 
 def update(request, category='Game', id=None):
@@ -231,22 +223,20 @@ def update(request, category='Game', id=None):
         form = create_form(request.POST, category, obj)
         if form.is_valid():
             form.save()
-            return render(request, 'close.html', context)
+            return DS.render(request, 'close.html', context)
     else:
         form = create_form(None, category, obj)
     context['form'] = form
     context['action'] = 'Update'
     context['category'] = category
     if request.user.is_authenticated:
-        return render(request, 'games/change.html', context)
+        return DS.render(request, 'games/change.html', context)
     else:
-        return redirect('login')
+        return DS.redirect('login')
 
 
 def delete(request, category='Game', id=None):
     if category == 'GameInList':
         return LV.delete(request, id)
     get_object(category, id).delete()
-    response = {
-    }
-    return DH.JsonResponse(response)
+    return DH.JsonResponse({})
